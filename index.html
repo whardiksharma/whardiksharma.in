@@ -24,7 +24,7 @@
     <script src="./assets/airo-video-slots.js.download"></script>
     <script src="./assets/airo-logo-orientation.js.download"></script>
     <style>
-  #airo-boot-spinner {
+  #airo-boot-spinner { display: none !important;
     position: fixed;
     inset: 0;
     z-index: 9998;
@@ -40,7 +40,7 @@
     pointer-events: none;
     animation: airo-boot-fade 0.2s ease 1s forwards;
   }
-  #app:not(:empty) ~ #airo-boot-spinner {
+  #app:not(:empty) ~ #airo-boot-spinner { display: none !important;
     display: none;
   }
   .airo-boot-ring {
