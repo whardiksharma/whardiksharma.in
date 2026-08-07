@@ -328,21 +328,21 @@
 
         .flying-shuttle-jet {
             position: absolute;
-            top: -240px;
-            left: -320px;
+            top: -15px;
+            right: 20px;
             z-index: 50;
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
             color: #ffffff;
-            padding: 0.75rem 1.25rem;
+            padding: 0.55rem 1.1rem;
             border-radius: 9999px;
-            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4), 0 0 25px rgba(59, 130, 246, 0.5);
-            border: 2px solid #3b82f6;
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             pointer-events: auto;
             cursor: pointer;
-            animation: flyInFlight 2.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation: flyInFlight 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .flying-shuttle-jet img {
@@ -365,19 +365,15 @@
 
         @keyframes flyInFlight {
             0% {
-                transform: translate(-450px, -280px) rotate(25deg) scale(0.6);
+                transform: translate(120px, -40px) scale(0.6) rotate(15deg);
                 opacity: 0;
             }
-            40% {
-                transform: translate(120px, -80px) rotate(15deg) scale(1.1);
-                opacity: 1;
-            }
-            75% {
-                transform: translate(20px, -20px) rotate(-5deg) scale(1.05);
+            50% {
+                transform: translate(-40px, 20px) scale(1.08) rotate(-5deg);
                 opacity: 1;
             }
             100% {
-                transform: translate(140px, 45px) rotate(0deg) scale(1);
+                transform: translate(0, 0) scale(1) rotate(0deg);
                 opacity: 1;
             }
         }
