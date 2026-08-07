@@ -7,11 +7,11 @@
     <meta name="description" content="Hardik Sharma is an Assistant Developer and Product R&D Lead at OmmNoMi, specializing in AppSheet, Google Workspace, Frappe Ecosystem, and enterprise workflow automation.">
     
     <!-- Favicon tags -->
-    <link rel="shortcut icon" href="./favicon.ico?v=5" type="image/x-icon">
-    <link rel="icon" href="./favicon.ico?v=5" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon.png?v=5">
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon.png?v=5">
-    <link rel="apple-touch-icon" href="./assets/favicon.png?v=5">
+    <link rel="shortcut icon" href="./favicon.ico?v=6" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico?v=6" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon.png?v=6">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon.png?v=6">
+    <link rel="apple-touch-icon" href="./assets/favicon.png?v=6">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,7 +55,7 @@
             line-height: 1.6;
         }
 
-        /* Ambient Glowing Background Orbs (Light Mode) */
+        /* Ambient Glowing Orbs */
         .bg-anims {
             position: absolute;
             top: 0;
@@ -116,7 +116,7 @@
             left: 0;
             right: 0;
             z-index: 100;
-            background: rgba(255, 255, 255, 0.88);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
@@ -127,12 +127,6 @@
             justify-content: space-between;
             align-items: center;
             height: 75px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
         }
 
         .logo img {
@@ -179,7 +173,7 @@
             box-shadow: 0 8px 22px rgba(37, 99, 235, 0.38);
         }
 
-        /* Marquee Ticker with Brand Badges */
+        /* Marquee Ticker with Real Brand Logos */
         .crawler-wrapper {
             margin-top: 75px;
             background: var(--bg-secondary);
@@ -188,31 +182,32 @@
             white-space: nowrap;
             padding: 0.8rem 0;
             display: flex;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
 
         .crawler {
             display: inline-flex;
             align-items: center;
-            animation: marquee 30s linear infinite;
+            animation: marquee 28s linear infinite;
         }
 
         .ticker-item {
             display: inline-flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.75rem;
             font-family: var(--font-heading);
-            font-size: 0.82rem;
-            font-weight: 600;
+            font-size: 0.85rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.06em;
             color: var(--text-color);
             padding: 0 2rem;
         }
 
-        .ticker-item svg {
-            width: 18px;
-            height: 18px;
+        .ticker-item img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            border-radius: 4px;
         }
 
         @keyframes marquee {
@@ -220,9 +215,9 @@
             100% { transform: translate3d(-50%, 0, 0); }
         }
 
-        /* Hero Section with Flying & Landing Core */
+        /* Hero Section */
         .hero {
-            padding: 6rem 0 5rem 0;
+            padding: 5.5rem 0 4.5rem 0;
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
             gap: 3.5rem;
@@ -233,7 +228,7 @@
         @media (max-width: 900px) {
             .hero {
                 grid-template-columns: 1fr;
-                padding: 4rem 0 3rem 0;
+                padding: 3.5rem 0 2.5rem 0;
             }
         }
 
@@ -324,38 +319,100 @@
             color: var(--primary);
         }
 
-        /* Flight & Landing Automation Module Graphic */
-        .flight-landing-wrapper {
+        /* DYNAMIC DRAMATIC FLYING JET ANIMATION */
+        .flight-container {
             position: relative;
             display: flex;
             justify-content: center;
+            align-items: center;
         }
 
+        /* Floating Flying Tech Jet Graphic */
+        .flying-shuttle-jet {
+            position: absolute;
+            top: -240px;
+            left: -320px;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: #ffffff;
+            padding: 0.75rem 1.25rem;
+            border-radius: 9999px;
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4), 0 0 25px rgba(59, 130, 246, 0.5);
+            border: 2px solid #3b82f6;
+            pointer-events: auto;
+            cursor: pointer;
+            animation: flyInFlight 2.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .flying-shuttle-jet img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+        }
+
+        .flying-shuttle-jet .jet-trail {
+            position: absolute;
+            right: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 140px;
+            height: 4px;
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0) 0%, rgba(59, 130, 246, 0.8) 70%, #ffffff 100%);
+            border-radius: 9999px;
+            box-shadow: 0 0 12px #3b82f6;
+        }
+
+        @keyframes flyInFlight {
+            0% {
+                transform: translate(-450px, -280px) rotate(25deg) scale(0.6);
+                opacity: 0;
+            }
+            40% {
+                transform: translate(120px, -80px) rotate(15deg) scale(1.1);
+                opacity: 1;
+            }
+            75% {
+                transform: translate(20px, -20px) rotate(-5deg) scale(1.05);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(140px, 45px) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Shockwave Pulse Ring on Landing */
+        .landing-impact-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            border: 2px solid var(--primary);
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            opacity: 0;
+            animation: shockwavePulse 1s ease-out 2.2s forwards;
+        }
+
+        @keyframes shockwavePulse {
+            0% { transform: scale(0.95); opacity: 1; border-color: #2563eb; }
+            100% { transform: scale(1.15); opacity: 0; border-color: rgba(37, 99, 235, 0); }
+        }
+
+        /* Landing Target Core Card */
         .shuttle-landing-card {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: 24px;
             padding: 2.2rem;
             width: 100%;
-            max-width: 440px;
+            max-width: 450px;
             box-shadow: 0 20px 50px rgba(37, 99, 235, 0.12);
             position: relative;
-            animation: flyAndLand 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes flyAndLand {
-            0% {
-                transform: translate(140px, -140px) scale(0.65) rotate(8deg);
-                opacity: 0;
-            }
-            70% {
-                transform: translate(-12px, 12px) scale(1.02) rotate(-1deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(0, 0) scale(1) rotate(0deg);
-                opacity: 1;
-            }
         }
 
         .landing-header {
@@ -389,34 +446,46 @@
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            animation: unfoldOpen 1.8s ease-out forwards;
+            opacity: 0;
+            animation: unfoldOpen 1.2s ease-out 2.4s forwards;
         }
 
         @keyframes unfoldOpen {
-            0% { opacity: 0; transform: scaleY(0.85); transform-origin: top; }
-            50% { opacity: 0.5; }
+            0% { opacity: 0; transform: scaleY(0.7); transform-origin: top; }
             100% { opacity: 1; transform: scaleY(1); }
         }
 
         .unfold-item {
             background: var(--bg-color);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 14px;
             padding: 1rem 1.2rem;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 1rem;
             transition: all 0.3s;
+        }
+
+        .unfold-item img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            border-radius: 6px;
+            flex-shrink: 0;
         }
 
         .unfold-item:hover {
             border-color: var(--primary);
-            transform: translateX(4px);
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.08);
+            transform: translateX(5px);
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.1);
+        }
+
+        .unfold-info {
+            flex-grow: 1;
         }
 
         .unfold-info h4 {
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             font-weight: 700;
         }
 
@@ -429,41 +498,42 @@
         .unfold-metric {
             font-family: var(--font-heading);
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--primary);
         }
 
-        /* Brand Floating Badges (Levitation) */
+        /* Floating Levitation Brand Badges */
         .brand-badge-float {
             position: absolute;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             border: 1px solid var(--border-color);
             border-radius: 14px;
-            padding: 0.6rem 1rem;
+            padding: 0.6rem 1.1rem;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.75rem;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 700;
             z-index: 10;
         }
 
-        .brand-badge-float svg {
-            width: 22px;
-            height: 22px;
+        .brand-badge-float img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
         }
 
         .badge-pos-1 {
-            top: -20px;
-            left: -20px;
+            top: -25px;
+            left: -25px;
             animation: levitate 6s ease-in-out infinite;
         }
 
         .badge-pos-2 {
             bottom: -25px;
-            right: 10px;
+            right: 5px;
             animation: levitateAlt 7s ease-in-out infinite;
         }
 
@@ -500,7 +570,7 @@
             font-size: 1.05rem;
         }
 
-        /* About Section (Fresh Light Panel + Bio) */
+        /* About Section */
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1.8fr;
@@ -557,14 +627,14 @@
             line-height: 1.8;
         }
 
-        /* Official Brand Logos Bar (Tech Stack Showcase) */
+        /* Tech Stack Showcase Bar with Real User Logos */
         .tech-brands-bar {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: center;
-            gap: 2rem;
-            padding: 2.5rem;
+            gap: 1.8rem;
+            padding: 2.2rem;
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: 20px;
@@ -575,28 +645,29 @@
         .brand-pill {
             display: flex;
             align-items: center;
-            gap: 0.7rem;
-            padding: 0.6rem 1.2rem;
+            gap: 0.75rem;
+            padding: 0.65rem 1.3rem;
             background: var(--bg-color);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 14px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             transition: all 0.3s;
         }
 
-        .brand-pill svg {
-            width: 22px;
-            height: 22px;
+        .brand-pill img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
         }
 
         .brand-pill:hover {
             border-color: var(--primary);
             transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.12);
         }
 
-        /* Skills Grid (12 Cards - Fresh Light Glassmorphism) */
+        /* Skills Grid (12 Cards with Exact User Logos) */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -620,8 +691,8 @@
         }
 
         .skill-icon {
-            width: 46px;
-            height: 46px;
+            width: 48px;
+            height: 48px;
             border-radius: 12px;
             background: var(--primary-light);
             border: 1px solid rgba(37, 99, 235, 0.15);
@@ -629,13 +700,13 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 1.4rem;
-            color: var(--primary);
             transition: all 0.3s;
         }
 
-        .skill-card:hover .skill-icon {
-            background: var(--primary);
-            color: #ffffff;
+        .skill-icon img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
         }
 
         .skill-card h3 {
@@ -652,7 +723,7 @@
             line-height: 1.65;
         }
 
-        /* Projects Section (Unfolding Blueprints) */
+        /* Projects Section */
         .projects-grid {
             display: flex;
             flex-direction: column;
@@ -856,10 +927,6 @@
             font-weight: 600;
         }
 
-        .location-badge svg {
-            color: var(--accent);
-        }
-
         /* Footer */
         footer {
             padding: 4rem 0 3rem 0;
@@ -883,21 +950,7 @@
             object-fit: contain;
         }
 
-        .footer-copy {
-            text-align: right;
-        }
-
-        @media (max-width: 600px) {
-            .footer-wrapper {
-                flex-direction: column;
-                text-align: center;
-            }
-            .footer-copy {
-                text-align: center;
-            }
-        }
-
-        /* Scroll Reveal Animation */
+        /* Scroll Reveal */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -912,7 +965,7 @@
 </head>
 <body>
 
-    <!-- Ambient Glowing Background Orbs (Light Mode) -->
+    <!-- Ambient Glowing Orbs -->
     <div class="bg-anims">
         <div class="glowing-blob blob-1"></div>
         <div class="glowing-blob blob-2"></div>
@@ -933,50 +986,42 @@
         </div>
     </header>
 
-    <!-- Infinite Marquee Ticker with Brand Badges -->
+    <!-- Infinite Marquee Ticker with Real User Logos -->
     <div class="crawler-wrapper">
         <div class="crawler">
             <div class="ticker-item">
-                <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
-                Google Workspace
+                <img src="./assets/frappe_logo.png" alt="Frappe">
+                Frappe Framework
             </div>
             <div class="ticker-item">
-                <svg viewBox="0 0 24 24" fill="#0089FF"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                Frappe / ERPNext
+                <img src="./assets/appsheet_logo.png" alt="AppSheet">
+                Google AppSheet
             </div>
             <div class="ticker-item">
-                <svg viewBox="0 0 24 24" fill="#2563eb"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
-                AppSheet Architecture
-            </div>
-            <div class="ticker-item">
-                <svg viewBox="0 0 24 24" fill="#4f46e5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <img src="./assets/apps_script_logo.png" alt="Apps Script">
                 Google Apps Script
             </div>
             <div class="ticker-item">
-                <svg viewBox="0 0 24 24" fill="#10b981"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-                Custom App Creator
-            </div>
-            <div class="ticker-item">
-                <svg viewBox="0 0 24 24" fill="#f59e0b"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-                SEO Boost &amp; Optimization
-            </div>
-            
-            <!-- Duplicated for seamless marquee looping -->
-            <div class="ticker-item">
-                <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
                 Google Workspace
             </div>
+
+            <!-- Duplicated for seamless loop -->
             <div class="ticker-item">
-                <svg viewBox="0 0 24 24" fill="#0089FF"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                Frappe / ERPNext
+                <img src="./assets/frappe_logo.png" alt="Frappe">
+                Frappe Framework
             </div>
             <div class="ticker-item">
-                <svg viewBox="0 0 24 24" fill="#2563eb"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
-                AppSheet Architecture
+                <img src="./assets/appsheet_logo.png" alt="AppSheet">
+                Google AppSheet
             </div>
             <div class="ticker-item">
-                <svg viewBox="0 0 24 24" fill="#4f46e5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <img src="./assets/apps_script_logo.png" alt="Apps Script">
                 Google Apps Script
+            </div>
+            <div class="ticker-item">
+                <svg width="22" height="22" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                Google Workspace
             </div>
         </div>
     </div>
@@ -994,30 +1039,43 @@
             </div>
         </div>
 
-        <!-- Flying & Landing Core Graphic -->
-        <div class="flight-landing-wrapper">
+        <!-- DRAMATIC VISIBLE FLYING JET LANDING CONTAINER -->
+        <div class="flight-container">
             
-            <!-- Levitation Floating Badges -->
+            <!-- FLYING SHUTTLE JET OBJECT (FLIES IN & LANDS ON CORE CARD) -->
+            <div id="flyingJet" class="flying-shuttle-jet" onclick="replayFlight()">
+                <div class="jet-trail"></div>
+                <img src="./assets/appsheet_logo.png" alt="Flying Shuttle">
+                <span style="font-family:var(--font-heading); font-weight:700; font-size:0.85rem;">🚀 OmmNoMi Flight Landing</span>
+            </div>
+
+            <!-- SHOCKWAVE PULSE RING ON LANDING -->
+            <div class="landing-impact-ring"></div>
+
+            <!-- Floating Brand Badges -->
             <div class="brand-badge-float badge-pos-1">
-                <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
-                <span>Google Stack</span>
+                <img src="./assets/frappe_logo.png" alt="Frappe">
+                <span>Frappe Ecosystem</span>
             </div>
 
             <div class="brand-badge-float badge-pos-2">
-                <svg viewBox="0 0 24 24" fill="#0089FF"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                <span>Frappe Cloud</span>
+                <img src="./assets/apps_script_logo.png" alt="Apps Script">
+                <span>Google Apps Script</span>
             </div>
 
+            <!-- Landing Target Core Card -->
             <div class="shuttle-landing-card">
                 <div class="landing-header">
                     <div class="landing-title">
                         <div class="status-dot"></div>
-                        <span>Automation Core Live</span>
+                        <span>Automation Engine Core</span>
                     </div>
-                    <span style="font-size:0.78rem; font-weight:700; color:var(--primary);">OmmNoMi Engine</span>
+                    <button onclick="replayFlight()" style="background:var(--primary-light); color:var(--primary); border:1px solid rgba(37,99,235,0.2); padding:0.3rem 0.7rem; border-radius:8px; font-size:0.75rem; font-weight:700; cursor:pointer;">✈️ Re-play Flight</button>
                 </div>
+
                 <div class="unfold-container">
                     <div class="unfold-item">
+                        <img src="./assets/appsheet_logo.png" alt="AppSheet">
                         <div class="unfold-info">
                             <h4>Orbit HRMS Engine</h4>
                             <p>AppSheet + Google Cloud</p>
@@ -1025,16 +1083,18 @@
                         <div class="unfold-metric">28+ Workflows</div>
                     </div>
                     <div class="unfold-item">
+                        <img src="./assets/frappe_logo.png" alt="Frappe">
                         <div class="unfold-info">
                             <h4>Yangon Broom ERP</h4>
-                            <p>Frappe Cloud Ecosystem</p>
+                            <p>Frappe Cloud Framework</p>
                         </div>
                         <div class="unfold-metric">100% ERP</div>
                     </div>
                     <div class="unfold-item">
+                        <img src="./assets/apps_script_logo.png" alt="Apps Script">
                         <div class="unfold-info">
                             <h4>Compliance Exporter</h4>
-                            <p>RBAC Data Exporter</p>
+                            <p>Google Apps Script RBAC</p>
                         </div>
                         <div class="unfold-metric">Native CSV</div>
                     </div>
@@ -1044,24 +1104,24 @@
         </div>
     </section>
 
-    <!-- Official Brand Tech Stack Bar -->
+    <!-- Tech Stack Bar with Exact User Logos -->
     <div class="container">
         <div class="tech-brands-bar reveal">
             <div class="brand-pill">
-                <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
-                Google Workspace
-            </div>
-            <div class="brand-pill">
-                <svg viewBox="0 0 24 24" fill="#0089FF"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <img src="./assets/frappe_logo.png" alt="Frappe">
                 Frappe Framework
             </div>
             <div class="brand-pill">
-                <svg viewBox="0 0 24 24" fill="#2563eb"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
-                AppSheet
+                <img src="./assets/appsheet_logo.png" alt="AppSheet">
+                Google AppSheet
             </div>
             <div class="brand-pill">
-                <svg viewBox="0 0 24 24" fill="#4f46e5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                Apps Script
+                <img src="./assets/apps_script_logo.png" alt="Apps Script">
+                Google Apps Script
+            </div>
+            <div class="brand-pill">
+                <svg width="24" height="24" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                Google Workspace
             </div>
         </div>
     </div>
@@ -1098,7 +1158,7 @@
         </div>
     </section>
 
-    <!-- Skills Section (12 Full-Stack & LinkedIn Skills) -->
+    <!-- Skills Section (12 Full-Stack Skills with User Logos) -->
     <section id="skills" class="container reveal">
         <div class="section-header">
             <h2>Skills &amp; Expertise</h2>
@@ -1107,84 +1167,84 @@
         <div class="skills-grid">
             <div class="skill-card">
                 <div class="skill-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line></svg>
+                    <img src="./assets/appsheet_logo.png" alt="AppSheet">
                 </div>
                 <h3>AppSheet Development</h3>
                 <p>Advanced no-code/low-code application engineering with custom logic, workflows, and integrations.</p>
             </div>
             <div class="skill-card">
                 <div class="skill-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                    <img src="./assets/frappe_logo.png" alt="Frappe">
                 </div>
                 <h3>Frappe / ERPNext Ecosystem</h3>
                 <p>Migrating legacy systems to open-source Frappe Cloud framework unifying CRM, HR, invoicing, and support.</p>
             </div>
             <div class="skill-card">
                 <div class="skill-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                </div>
-                <h3>Custom App Creator</h3>
-                <p>Designing tailored, robust business applications that smooth operations and boost productivity.</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                </div>
-                <h3>Website Builder</h3>
-                <p>Full-stack web application development creating fast, responsive, and aesthetically striking web portals.</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-                </div>
-                <h3>SEO Boost &amp; Optimization</h3>
-                <p>Optimizing web architecture, meta hierarchy, and search performance to maximize organic visibility.</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                    <img src="./assets/apps_script_logo.png" alt="Apps Script">
                 </div>
                 <h3>Google Apps Script</h3>
                 <p>Custom automation scripts that extend Google Workspace capabilities and connect disparate cloud systems.</p>
             </div>
             <div class="skill-card">
                 <div class="skill-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                    <svg width="28" height="28" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
                 </div>
                 <h3>Google Workspace</h3>
                 <p>Deep integration expertise across Sheets, Docs, Drive, Forms, Gmail, and the full Workspace ecosystem.</p>
             </div>
             <div class="skill-card">
                 <div class="skill-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    <img src="./assets/appsheet_logo.png" alt="Custom App Creator">
+                </div>
+                <h3>Custom App Creator</h3>
+                <p>Designing tailored, robust business applications that smooth operations and boost productivity.</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <img src="./assets/frappe_logo.png" alt="Website Builder">
+                </div>
+                <h3>Website Builder</h3>
+                <p>Full-stack web application development creating fast, responsive, and aesthetically striking web portals.</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                </div>
+                <h3>SEO Boost &amp; Optimization</h3>
+                <p>Optimizing web architecture, meta hierarchy, and search performance to maximize organic visibility.</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                 </div>
                 <h3>Product Documentation</h3>
                 <p>Turning complex SOPs into clear, visual Study Guides and release notes that drive user adoption.</p>
             </div>
             <div class="skill-card">
                 <div class="skill-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
                 </div>
                 <h3>Cinematic Video Production</h3>
                 <p>End-to-end production of tutorial videos — scripting, voiceover, and precision cinematic editing.</p>
             </div>
             <div class="skill-card">
                 <div class="skill-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
                 </div>
                 <h3>Digital Branding &amp; Strategy</h3>
                 <p>Crafting consistent brand experiences that communicate Operational Excellence across all touchpoints.</p>
             </div>
             <div class="skill-card">
                 <div class="skill-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>
                 </div>
                 <h3>AI Tools Integration</h3>
                 <p>Researching and integrating the latest AI tools to keep products at the cutting edge of innovation.</p>
             </div>
             <div class="skill-card">
                 <div class="skill-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
                 </div>
                 <h3>Dashboard Prototyping</h3>
                 <p>Designing and prototyping advanced dashboards that are powerful, intuitive, and a joy to use.</p>
@@ -1192,7 +1252,7 @@
         </div>
     </section>
 
-    <!-- Projects Section (Unfolding Blueprints) -->
+    <!-- Projects Section -->
     <section id="projects" class="container reveal">
         <div class="section-header">
             <h2>Featured Projects</h2>
@@ -1205,7 +1265,7 @@
                 <div class="project-image-box">
                     <div class="project-graphic">
                         <div class="project-graphic-header">
-                            <span>ORBIT_HRMS_AUDIT</span>
+                            <span style="display:flex; align-items:center; gap:0.5rem;"><img src="./assets/appsheet_logo.png" style="width:20px; height:20px;" alt=""> ORBIT_HRMS</span>
                             <span style="color:var(--primary);">v2.0.0</span>
                         </div>
                         <div class="graphic-stat-row">
@@ -1252,7 +1312,7 @@
                 <div class="project-image-box">
                     <div class="project-graphic">
                         <div class="project-graphic-header">
-                            <span>YANGON_BROOM</span>
+                            <span style="display:flex; align-items:center; gap:0.5rem;"><img src="./assets/frappe_logo.png" style="width:20px; height:20px;" alt=""> YANGON_BROOM</span>
                             <span style="color:var(--primary);">v1.0.0</span>
                         </div>
                         <div class="graphic-stat-row">
@@ -1299,7 +1359,7 @@
                 <div class="project-image-box">
                     <div class="project-graphic">
                         <div class="project-graphic-header">
-                            <span>EXPORT_COMPLIANCE</span>
+                            <span style="display:flex; align-items:center; gap:0.5rem;"><img src="./assets/apps_script_logo.png" style="width:20px; height:20px;" alt=""> EXPORT_COMPLIANCE</span>
                             <span style="color:var(--primary);">Live</span>
                         </div>
                         <div class="graphic-stat-row">
@@ -1387,8 +1447,17 @@
         </div>
     </footer>
 
-    <!-- Scroll Reveal JavaScript -->
+    <!-- Interactive JS for Flight Replay & Scroll Reveal -->
     <script>
+        function replayFlight() {
+            const jet = document.getElementById("flyingJet");
+            if (jet) {
+                jet.style.animation = "none";
+                jet.offsetHeight; /* trigger reflow */
+                jet.style.animation = "flyInFlight 2.4s cubic-bezier(0.25, 1, 0.5, 1) forwards";
+            }
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
             const reveals = document.querySelectorAll(".reveal");
             
