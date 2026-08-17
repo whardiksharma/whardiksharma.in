@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 54" fill="none">
+  <!-- Stylized OmmNoMi ON Monogram -->
+  <g transform="translate(4, 3)">
+    <!-- Yellow Outer Horseshoe Curve -->
+    <path d="M4 12 C4 5, 14 3, 26 3 C38 3, 44 5, 44 12 L44 36 C44 43, 38 45, 26 45 C14 45, 4 43, 4 36 Z" stroke="#FFA000" stroke-width="5.5" fill="none" stroke-linejoin="round"/>
+    <!-- Purple Horizontal Bar -->
+    <path d="M2 24 L22 24" stroke="#7B1FA2" stroke-width="6.5" stroke-linecap="round"/>
+    <!-- Blue First Slanted Bar -->
+    <path d="M22 41 L32 7" stroke="#0D47A1" stroke-width="7" stroke-linecap="round"/>
+    <!-- Blue Second Slanted Bar -->
+    <path d="M30 41 L40 7" stroke="#1565C0" stroke-width="7" stroke-linecap="round"/>
+    <!-- Green Accent Inside -->
+    <path d="M27 38 L33 11" stroke="#2E7D32" stroke-width="4" stroke-linecap="round"/>
+    <!-- Red Right Vertical Leg -->
+    <path d="M42 41 L42 27" stroke="#D32F2F" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  
+  <!-- OmmNoMi Automation LLP Typography -->
+  <!-- "Omm" in Vibrant Royal Blue -->
+  <text x="60" y="38" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-weight="800" font-size="32" fill="#0052FF" letter-spacing="-0.02em">Omm</text>
+  <!-- "No" in Forest Green -->
+  <text x="142" y="38" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-weight="800" font-size="32" fill="#2E7D32" letter-spacing="-0.02em">No</text>
+  <!-- "M" in Crimson Red -->
+  <text x="190" y="38" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-weight="800" font-size="32" fill="#E53935" letter-spacing="-0.02em">M</text>
+  <!-- "i" in Bright Amber Orange -->
+  <text x="222" y="38" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-weight="800" font-size="32" fill="#FB8C00" letter-spacing="-0.02em">i</text>
+  <!-- "Automation LLP" in Charcoal Slate -->
+  <text x="240" y="38" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-weight="600" font-size="28" fill="#4B5563" letter-spacing="-0.01em">Automation LLP</text>
+</svg>

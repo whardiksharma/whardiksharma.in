@@ -1,0 +1,2196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmmNoMi — Enterprise Business Card Studio & Print Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #080C14;
+      --bg-panel: #0E1626;
+      --bg-card: #152033;
+      --border-subtle: #202F48;
+      --border-accent: #2563EB;
+      --text-light: #F8FAFC;
+      --text-dim: #94A3B8;
+      --omm-blue: #0052FF;
+      --omm-green: #2E7D32;
+      --omm-red: #E53935;
+      --omm-orange: #FB8C00;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      font-family: var(--font-sans);
+      height: 100vh;
+      max-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+
+    /* Header */
+    .top-header {
+      background: rgba(14, 22, 38, 0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 10px 24px;
+      height: 60px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+    }
+
+    .brand-logo-img {
+      height: 32px;
+      width: auto;
+      max-width: 240px;
+      object-fit: contain;
+    }
+
+    .app-title-box h1 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .app-title-box p {
+      font-size: 0.72rem;
+      color: #38BDF8;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .header-btns {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 9px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-light);
+      border-color: var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      background: #24344E;
+      border-color: #38BDF8;
+    }
+
+    .btn-print {
+      background: linear-gradient(135deg, #0052FF, #2563EB);
+      color: #FFF;
+      font-weight: 700;
+      box-shadow: 0 4px 16px rgba(0, 82, 255, 0.35);
+    }
+
+    .btn-print:hover {
+      background: linear-gradient(135deg, #2563EB, #3B82F6);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0, 82, 255, 0.45);
+    }
+
+    /* Workspace */
+    .studio-grid {
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      flex: 1;
+      height: calc(100vh - 60px);
+      max-height: calc(100vh - 60px);
+      overflow: hidden;
+    }
+
+    /* Left Sidebar: The ONLY Scrollable Area */
+    .sidebar-pane {
+      background: var(--bg-panel);
+      border-right: 1px solid var(--border-subtle);
+      height: 100%;
+      max-height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scroll-behavior: smooth;
+    }
+
+    .sidebar-pane::-webkit-scrollbar {
+      width: 6px;
+    }
+    .sidebar-pane::-webkit-scrollbar-track {
+      background: #080C14;
+    }
+    .sidebar-pane::-webkit-scrollbar-thumb {
+      background: #1E293B;
+      border-radius: 3px;
+    }
+    .sidebar-pane::-webkit-scrollbar-thumb:hover {
+      background: #38BDF8;
+    }
+
+    .panel-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .box-header {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .box-header svg {
+      color: #38BDF8;
+    }
+
+    /* 10 TEMPLATES SELECTOR (9 Light + 1 Dark) */
+    .template-selector-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      max-height: 230px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .template-card-btn {
+      background: #0B1019;
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .template-card-btn:hover {
+      border-color: #64748B;
+    }
+
+    .template-card-btn.active {
+      border-color: #38BDF8;
+      background: rgba(56, 189, 248, 0.1);
+    }
+
+    .tpl-swatch {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .tpl-info h4 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .tpl-info p {
+      font-size: 0.62rem;
+      color: var(--text-dim);
+    }
+
+    /* Inputs */
+    .fields-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .col-full {
+      grid-column: span 2;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-group label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .text-input {
+      background: #0B1019;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-light);
+      padding: 7px 10px;
+      border-radius: 7px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .text-input:focus {
+      border-color: var(--border-accent);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+    }
+
+    /* Upload Controls */
+    /* Upload Controls (3 Columns: Photo, Front Logo, Back Logo) */
+    .upload-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .drop-card {
+      background: #0B1019;
+      border: 1.5px dashed var(--border-subtle);
+      border-radius: 8px;
+      padding: 8px 4px;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      min-height: 80px;
+    }
+
+    .drop-card input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .drop-card img {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    .drop-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      line-height: 1.1;
+    }
+
+    /* Fine-Tuning Slider Controls */
+    .tune-slider-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+
+    .tune-slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-light);
+    }
+
+    .tune-slider-val {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: #38BDF8;
+      background: rgba(56, 189, 248, 0.12);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .range-input {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 5px;
+      background: #1E293B;
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .range-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #0052FF;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 0 6px rgba(0, 82, 255, 0.5);
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    .range-input::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    /* Stage: 100% Stable, Centered, Fixed (No Scrolling) */
+    .stage-pane {
+      background: radial-gradient(circle at 50% 35%, #131E30 0%, #060910 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 20px;
+      height: 100%;
+      max-height: 100%;
+      overflow: hidden !important;
+      position: relative;
+    }
+
+    .stage-switch {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(14, 22, 38, 0.9);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 12px;
+      border-radius: 30px;
+      margin-bottom: 20px;
+    }
+
+    .switch-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .switch-btn.active {
+      background: #2563EB;
+      color: #fff;
+    }
+
+    /* Card Geometry (Standard 3.5" x 2.0" Aspect Ratio = 540px x 308px) */
+    .card-3d-wrapper {
+      perspective: 1200px;
+    }
+
+    .card-flipper {
+      width: 540px;
+      height: 308px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .card-flipper.is-flipped {
+      transform: rotateY(180deg);
+    }
+
+    @media (max-width: 600px) {
+      .card-flipper {
+        width: 350px;
+        height: 200px;
+      }
+    }
+
+    .card-side {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      display: flex;
+    }
+
+    .card-side.side-back {
+      transform: rotateY(180deg);
+    }
+
+    /* Background graphics overlay */
+    .card-bg-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .card-accent-stripe {
+      display: none; /* Removed from light styles */
+      width: 10px;
+      height: 100%;
+      flex-shrink: 0;
+      z-index: 2;
+    }
+
+    /* FULL CARD INTERIOR WITH BALANCED GRID */
+    .card-content-area {
+      position: relative;
+      flex: 1;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 2;
+    }
+
+    /* ================= 10 THEME STYLES (9 LIGHT + 1 DARK) ================= */
+
+    /* 1. SIGNATURE WARM IVORY (Warm Linen & Amber Accent) */
+    .style-tpl-1 {
+      background: linear-gradient(135deg, #FFFDF9 0%, #FAF5EB 100%);
+      color: #0F172A;
+      border: 1.5px dashed #D6D3D1;
+    }
+    .style-tpl-1 .photo-box-border { border: 2px solid #D97706; box-shadow: 0 4px 12px rgba(217, 119, 6, 0.18); }
+    .style-tpl-1 .badge-star-pill { background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; }
+    .style-tpl-1 .founder-badge-pill { background: #E0F2FE; color: #0284C7; border: 1px solid #BAE6FD; }
+    .style-tpl-1 .tech-tag-pill { background: #FFFFFF; border: 1px solid #E2E8F0; color: #334155; }
+    .style-tpl-1 .back-sol-pill { background: #FFFFFF; border: 1px solid #E2E8F0; color: #1E293B; box-shadow: 0 2px 4px rgba(0,0,0,0.03); }
+    .style-tpl-1 .site-pill { color: #0052FF; }
+    .style-tpl-1 .subskills-text { color: #475569; }
+
+    /* 2. PLATINUM & COBALT BLUE (Clean Edge-to-Edge) */
+    .style-tpl-2 {
+      background: linear-gradient(145deg, #FFFFFF 0%, #F1F5F9 100%);
+      color: #0F172A;
+      border: 1.5px dashed #94A3B8;
+    }
+    .style-tpl-2 .photo-box-border { border: 2px solid #0052FF; box-shadow: 0 4px 12px rgba(0, 82, 255, 0.16); }
+    .style-tpl-2 .badge-star-pill { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
+    .style-tpl-2 .founder-badge-pill { background: #0052FF; color: #FFF; }
+    .style-tpl-2 .tech-tag-pill { background: #EFF6FF; border: 1px solid #DBEAFE; color: #1E40AF; }
+    .style-tpl-2 .back-sol-pill { background: #FFFFFF; border: 1px solid #CBD5E1; color: #0F172A; }
+    .style-tpl-2 .site-pill { color: #0052FF; }
+    .style-tpl-2 .subskills-text { color: #475569; }
+
+    /* 3. MODERN MINIMALIST LUXE WHITE */
+    .style-tpl-3 {
+      background: #FFFFFF;
+      color: #111827;
+      border: 1.5px dashed #CBD5E1;
+    }
+    .style-tpl-3 .photo-box-border { border: 2px solid #111827; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); }
+    .style-tpl-3 .badge-star-pill { background: #F3F4F6; color: #111827; border: 1px solid #E5E7EB; }
+    .style-tpl-3 .founder-badge-pill { background: #111827; color: #FFF; }
+    .style-tpl-3 .tech-tag-pill { background: #F9FAFB; border: 1px solid #E5E7EB; color: #374151; }
+    .style-tpl-3 .back-sol-pill { background: #F9FAFB; border: 1px solid #E5E7EB; color: #111827; }
+    .style-tpl-3 .site-pill { color: #111827; }
+    .style-tpl-3 .subskills-text { color: #4B5563; }
+
+    /* 4. MINT ENTERPRISE & EMERALD TECH */
+    .style-tpl-4 {
+      background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+      color: #064E3B;
+      border: 1.5px dashed #86EFAC;
+    }
+    .style-tpl-4 .photo-box-border { border: 2px solid #059669; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2); }
+    .style-tpl-4 .badge-star-pill { background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
+    .style-tpl-4 .founder-badge-pill { background: #059669; color: #FFF; }
+    .style-tpl-4 .tech-tag-pill { background: #FFFFFF; border: 1px solid #A7F3D0; color: #047857; }
+    .style-tpl-4 .back-sol-pill { background: #FFFFFF; border: 1px solid #A7F3D0; color: #064E3B; }
+    .style-tpl-4 .site-pill { color: #059669; }
+    .style-tpl-4 .subskills-text { color: #047857; }
+
+    /* 5. NORDIC FROST & CYAN BLUEPRINT */
+    .style-tpl-5 {
+      background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+      color: #0C4A6E;
+      border: 1.5px dashed #7DD3FC;
+    }
+    .style-tpl-5 .photo-box-border { border: 2px solid #0284C7; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2); }
+    .style-tpl-5 .badge-star-pill { background: #BAE6FD; color: #0369A1; border: 1px solid #7DD3FC; }
+    .style-tpl-5 .founder-badge-pill { background: #0284C7; color: #FFF; }
+    .style-tpl-5 .tech-tag-pill { background: #FFFFFF; border: 1px solid #BAE6FD; color: #0369A1; }
+    .style-tpl-5 .back-sol-pill { background: #FFFFFF; border: 1px solid #BAE6FD; color: #0C4A6E; }
+    .style-tpl-5 .site-pill { color: #0284C7; }
+    .style-tpl-5 .subskills-text { color: #0369A1; }
+
+    /* 6. CHAMPAGNE GOLD EXECUTIVE */
+    .style-tpl-6 {
+      background: linear-gradient(135deg, #FFFDF5 0%, #FEF9C3 100%);
+      color: #713F12;
+      border: 1.5px dashed #FDE047;
+    }
+    .style-tpl-6 .photo-box-border { border: 2px solid #CA8A04; box-shadow: 0 4px 12px rgba(202, 138, 4, 0.2); }
+    .style-tpl-6 .badge-star-pill { background: #FEF08A; color: #854D0E; border: 1px solid #FACC15; }
+    .style-tpl-6 .founder-badge-pill { background: #CA8A04; color: #FFF; }
+    .style-tpl-6 .tech-tag-pill { background: #FFFFFF; border: 1px solid #FEF08A; color: #854D0E; }
+    .style-tpl-6 .back-sol-pill { background: #FFFFFF; border: 1px solid #FEF08A; color: #713F12; }
+    .style-tpl-6 .site-pill { color: #854D0E; }
+    .style-tpl-6 .subskills-text { color: #854D0E; }
+
+    /* 7. SWISS BAUHAUS GRID */
+    .style-tpl-7 {
+      background: #FFFFFF;
+      color: #000000;
+      border: 1.5px dashed #000000;
+    }
+    .style-tpl-7 .photo-box-border { border: 2px solid #000000; box-shadow: 3px 3px 0 #000000; }
+    .style-tpl-7 .badge-star-pill { background: #000000; color: #FFFFFF; border: 1px solid #000000; }
+    .style-tpl-7 .founder-badge-pill { background: #000000; color: #FFFFFF; }
+    .style-tpl-7 .tech-tag-pill { background: #FFFFFF; border: 1.5px solid #000000; color: #000000; font-weight: 700; }
+    .style-tpl-7 .back-sol-pill { background: #FFFFFF; border: 1.5px solid #000000; color: #000000; font-weight: 800; }
+    .style-tpl-7 .site-pill { color: #000000; }
+    .style-tpl-7 .subskills-text { color: #374151; font-weight: 700; }
+
+    /* 8. FINTECH DIAGONAL SPLIT (Light Tone) */
+    .style-tpl-8 {
+      background: linear-gradient(130deg, #F8FAFC 0%, #F8FAFC 52%, #FFFFFF 52%, #EFF6FF 100%);
+      color: #0F172A;
+      border: 1.5px dashed #3B82F6;
+    }
+    .style-tpl-8 .photo-box-border { border: 2px solid #2563EB; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.18); }
+    .style-tpl-8 .badge-star-pill { background: #DBEAFE; color: #1E40AF; border: 1px solid #93C5FD; }
+    .style-tpl-8 .founder-badge-pill { background: #2563EB; color: #FFF; }
+    .style-tpl-8 .tech-tag-pill { background: #FFFFFF; border: 1px solid #BFDBFE; color: #1D4ED8; }
+    .style-tpl-8 .back-sol-pill { background: #FFFFFF; border: 1px solid #CBD5E1; color: #0F172A; }
+    .style-tpl-8 .site-pill { color: #2563EB; }
+    .style-tpl-8 .subskills-text { color: #475569; }
+
+    /* 9. SOFT LAVENDER MIST */
+    .style-tpl-9 {
+      background: linear-gradient(135deg, #FAF5FF 0%, #F3E8FF 100%);
+      color: #581C87;
+      border: 1.5px dashed #D8B4FE;
+    }
+    .style-tpl-9 .photo-box-border { border: 2px solid #9333EA; box-shadow: 0 4px 12px rgba(147, 51, 234, 0.2); }
+    .style-tpl-9 .badge-star-pill { background: #E9D5FF; color: #6B21A8; border: 1px solid #C084FC; }
+    .style-tpl-9 .founder-badge-pill { background: #9333EA; color: #FFF; }
+    .style-tpl-9 .tech-tag-pill { background: #FFFFFF; border: 1px solid #E9D5FF; color: #7E22CE; }
+    .style-tpl-9 .back-sol-pill { background: #FFFFFF; border: 1px solid #E9D5FF; color: #581C87; }
+    .style-tpl-9 .site-pill { color: #9333EA; }
+    .style-tpl-9 .subskills-text { color: #6B21A8; }
+
+    /* 10. THE ONLY DARK THEME: OBSIDIAN CYBER GOLD */
+    .style-tpl-10 {
+      background: radial-gradient(circle at 15% 20%, #1A1A1E 0%, #08080A 100%);
+      color: #FFFFFF;
+      border: 1.5px dashed #52525B;
+    }
+    .style-tpl-10 .card-accent-stripe { display: block; background: linear-gradient(180deg, #D4AF37 0%, #996515 100%); }
+    .style-tpl-10 .photo-box-border { border: 2px solid #D4AF37; box-shadow: 0 4px 14px rgba(212, 175, 55, 0.3); }
+    .style-tpl-10 .badge-star-pill { background: rgba(212, 175, 55, 0.15); color: #FCD34D; border: 1px solid rgba(212, 175, 55, 0.4); }
+    .style-tpl-10 .founder-badge-pill { background: #D4AF37; color: #000; font-weight: 900; }
+    .style-tpl-10 .tech-tag-pill { background: #18181B; border: 1px solid #3F3F46; color: #FCD34D; }
+    .style-tpl-10 .back-sol-pill { background: #141418; border: 1px solid #3F3F46; color: #F4F4F5; }
+    .style-tpl-10 .subskills-text { color: #CBD5E1; }
+    .style-tpl-10 .address-col, .style-tpl-10 .global-presence-text { color: #CBD5E1 !important; }
+    .style-tpl-10 .site-pill { color: #FCD34D; }
+
+    /* ================= DENSE, RICH FRONT CARD ARCHITECTURE ================= */
+    .front-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(148, 163, 184, var(--front-top-line-opacity, 0.25));
+      padding-bottom: 8px;
+      transform: translateY(var(--front-top-line-y, 0px));
+      transition: transform 0.05s, border-color 0.05s;
+    }
+
+    .card-brand-logo {
+      height: var(--front-logo-h, 24px);
+      transform: translateY(var(--front-logo-y, 0px));
+      width: auto;
+      max-width: 280px;
+      object-fit: contain;
+      transition: transform 0.05s, height 0.05s;
+    }
+
+    .top-meta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      font-weight: 700;
+      opacity: 0.85;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .front-center-grid {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 14px;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .photo-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transform: translate(var(--front-photo-x, 0px), var(--front-photo-y, 0px)) scale(var(--front-photo-scale, 1));
+      transition: transform 0.05s;
+    }
+
+    .photo-box-border {
+      width: 88px;
+      height: 98px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #E2E8F0;
+    }
+
+    .photo-box-border img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .founder-badge-pill {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .identity-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transform: translateY(var(--front-text-y, 0px));
+      transition: transform 0.05s;
+    }
+
+    .person-name {
+      font-family: var(--font-heading);
+      font-size: 1.28rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    .badge-star-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 5px;
+      width: fit-content;
+      line-height: 1.2;
+    }
+
+    .badge-star-pill svg {
+      width: 11px;
+      height: 11px;
+      fill: currentColor;
+    }
+
+    .subskills-text {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-top: 1px;
+    }
+
+    /* Core Tech Feature Tags Row (Fills Middle Empty Space!) */
+    .tech-tags-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 4px;
+      transform: translateY(var(--front-tags-y, 0px));
+      transition: transform 0.05s;
+    }
+
+    .tech-tag-pill {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    /* Front Bottom Grid */
+    .front-bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+      border-top: 1px solid rgba(148, 163, 184, var(--front-bottom-line-opacity, 0.2));
+      padding-top: 6px;
+      transform: translateY(var(--front-bottom-line-y, 0px));
+      transition: transform 0.05s, border-color 0.05s;
+    }
+
+    .contact-lines-box {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transform: translateY(var(--front-contact-y, 0px));
+      transition: transform 0.05s;
+    }
+
+    .contact-row-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .contact-row-item svg {
+      width: 12px;
+      height: 12px;
+      color: #0284C7;
+      flex-shrink: 0;
+    }
+
+    .qr-badge-column {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .qr-white-card {
+      background: #FFFFFF;
+      padding: 4px;
+      border-radius: 7px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--front-qr-size, 66px);
+      height: var(--front-qr-size, 66px);
+      transform: translate(var(--front-qr-x, 0px), var(--front-qr-y, 0px));
+      transition: transform 0.05s, width 0.05s, height 0.05s;
+      box-sizing: border-box;
+    }
+
+    #qrcode-target {
+      width: calc(var(--front-qr-size, 66px) - 8px);
+      height: calc(var(--front-qr-size, 66px) - 8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .qr-code-img, #qrcode-target img {
+      width: calc(var(--front-qr-size, 66px) - 8px) !important;
+      height: calc(var(--front-qr-size, 66px) - 8px) !important;
+      object-fit: contain;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      image-rendering: pixelated;
+      display: block !important;
+    }
+
+    #qrcode-target canvas {
+      display: none !important;
+    }
+
+    /* ================= BACK CARD ARCHITECTURE (100% CENTERED MINIMALIST) ================= */
+    .back-content-area {
+      position: relative;
+      flex: 1;
+      padding: 22px 24px 18px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .back-hero-brand-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--back-gap, 8px);
+      margin: auto 0;
+      width: 100%;
+    }
+
+    .back-logo-hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    .card-brand-logo-back {
+      height: var(--back-logo-h, 46px);
+      transform: translate(var(--back-logo-x, 0px), var(--back-logo-y, 0px));
+      width: auto;
+      max-width: 340px;
+      object-fit: contain;
+      transition: transform 0.05s, height 0.05s;
+    }
+
+    .back-center-text-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      margin: 0;
+      max-width: 440px;
+      transform: translateY(var(--back-text-y, 0px));
+      transition: transform 0.05s;
+    }
+
+    .back-headline-text {
+      font-family: var(--font-heading);
+      font-size: var(--back-font-size, 1.05rem);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: inherit;
+      line-height: 1.3;
+      transition: font-size 0.05s;
+    }
+
+    .back-mission-text {
+      font-size: 0.74rem;
+      font-weight: 500;
+      line-height: 1.4;
+      opacity: 0.85;
+    }
+
+    .back-footer-centered {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      border-top: 1px solid rgba(148, 163, 184, var(--back-line-opacity, 0.2));
+      padding-top: 8px;
+      transform: translateY(var(--back-line-y, 0px));
+      transition: transform 0.05s, border-color 0.05s;
+    }
+
+    .address-col-centered {
+      font-family: var(--font-mono);
+      font-size: var(--back-address-size, 0.58rem);
+      line-height: 1.35;
+      color: #64748B;
+      text-align: center;
+      max-width: 420px;
+      transform: translate(var(--back-address-x, 0px), var(--back-address-y, 0px));
+      transition: transform 0.05s, font-size 0.05s;
+    }
+
+    .back-site-badge-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transform: translateY(var(--back-footer-y, 0px));
+      transition: transform 0.05s;
+    }
+
+    .site-pill {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      padding: 0;
+      background: transparent;
+      border-radius: 0;
+      display: inline-block;
+    }
+
+    .global-presence-text {
+      font-family: var(--font-mono);
+      font-size: 0.56rem;
+      color: #64748B;
+      font-weight: 600;
+    }
+
+    .flip-instruction {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-top: 16px;
+    }
+
+    /* ================= A4 PRINT ENGINE (PERFECT SCALE FIT & NO OVERFLOW) ================= */
+    .print-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 12, 20, 0.98);
+      backdrop-filter: blur(16px);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .print-overlay.is-visible {
+      display: flex;
+    }
+
+    .print-action-bar {
+      max-width: 1080px;
+      margin: 0 auto 20px auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-panel);
+      padding: 14px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .a4-sheets-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+
+    .a4-paper-sheet {
+      background: #FFFFFF;
+      color: #000;
+      width: 210mm;
+      height: 297mm;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      padding: 16mm 10mm;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .a4-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 88.9mm);
+      grid-auto-rows: 50.8mm;
+      gap: 4mm 6mm;
+      justify-content: center;
+    }
+
+    .print-card-box {
+      width: 88.9mm;
+      height: 50.8mm;
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+      border: 0.5pt dashed #94A3B8; /* Clean precision cut line */
+      border-radius: 2.5mm;
+      page-break-inside: avoid;
+    }
+
+    .print-card-scaler {
+      width: 540px;
+      height: 308px;
+      transform: scale(0.6222); /* 336px / 540px */
+      transform-origin: top left;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .print-overlay, .print-overlay * {
+        visibility: visible;
+      }
+      .print-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: transparent !important;
+        padding: 0 !important;
+        display: block !important;
+      }
+      .print-action-bar {
+        display: none !important;
+      }
+      .a4-sheets-wrapper {
+        gap: 0;
+        margin: 0;
+      }
+      .a4-paper-sheet {
+        box-shadow: none !important;
+        margin: 0;
+        page-break-after: always;
+        break-after: page;
+        width: 210mm;
+        height: 297mm;
+        padding: 16mm 10mm;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      @page {
+        size: A4 portrait;
+        margin: 0mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="top-header">
+    <div class="brand-wrap">
+      <img src="assets/ommnomi-logo.svg" class="brand-logo-img" alt="OmmNoMi Automation LLP">
+      <div class="app-title-box">
+        <h1>Card Studio & Print Engine</h1>
+        <p>10 Enterprise Styles • 9 Light & 1 Dark • ommnomi.in</p>
+      </div>
+    </div>
+
+    <div class="header-btns">
+      <a href="Hardik SharmaAssistant Developer & Product Research.html" class="btn btn-secondary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        Back to Website
+      </a>
+      <button class="btn btn-print" onclick="openPrintModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect width="12" height="8" x="6" y="14"></rect></svg>
+        Print A4 Sheet (Duplex)
+      </button>
+    </div>
+  </header>
+
+  <!-- Studio Work Area -->
+  <div class="studio-grid">
+    
+    <!-- LEFT CONTROLS PANE -->
+    <aside class="sidebar-pane">
+      
+      <!-- 10 Themes Selection Grid (9 Light + 1 Dark) -->
+      <div class="panel-box">
+        <div class="box-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          Select Card Design (9 Light + 1 Dark)
+        </div>
+        <div class="template-selector-grid">
+          
+          <div class="template-card-btn active" onclick="applyTemplate('style-tpl-1', this)">
+            <div class="tpl-swatch" style="background: linear-gradient(135deg, #FFFDF9 60%, #D97706 60%);"></div>
+            <div class="tpl-info">
+              <h4>1. Warm Ivory</h4>
+              <p>Light • Amber Trim</p>
+            </div>
+          </div>
+
+          <div class="template-card-btn" onclick="applyTemplate('style-tpl-2', this)">
+            <div class="tpl-swatch" style="background: linear-gradient(135deg, #FFFFFF 60%, #0052FF 60%);"></div>
+            <div class="tpl-info">
+              <h4>2. Platinum Blue</h4>
+              <p>Light • Clean Frame</p>
+            </div>
+          </div>
+
+          <div class="template-card-btn" onclick="applyTemplate('style-tpl-3', this)">
+            <div class="tpl-swatch" style="background: linear-gradient(135deg, #FFFFFF 60%, #111827 60%);"></div>
+            <div class="tpl-info">
+              <h4>3. Minimalist Luxe</h4>
+              <p>Light • Pure White</p>
+            </div>
+          </div>
+
+          <div class="template-card-btn" onclick="applyTemplate('style-tpl-4', this)">
+            <div class="tpl-swatch" style="background: linear-gradient(135deg, #F0FDF4 60%, #059669 60%);"></div>
+            <div class="tpl-info">
+              <h4>4. Mint & Emerald</h4>
+              <p>Light • Green Tech</p>
+            </div>
+          </div>
+
+          <div class="template-card-btn" onclick="applyTemplate('style-tpl-5', this)">
+            <div class="tpl-swatch" style="background: linear-gradient(135deg, #F0F9FF 60%, #0284C7 60%);"></div>
+            <div class="tpl-info">
+              <h4>5. Nordic Frost</h4>
+              <p>Light • Cyan Blue</p>
+            </div>
+          </div>
+
+          <div class="template-card-btn" onclick="applyTemplate('style-tpl-6', this)">
+            <div class="tpl-swatch" style="background: linear-gradient(135deg, #FFFDF5 60%, #CA8A04 60%);"></div>
+            <div class="tpl-info">
+              <h4>6. Champagne Gold</h4>
+              <p>Light • Luxury Gold</p>
+            </div>
+          </div>
+
+          <div class="template-card-btn" onclick="applyTemplate('style-tpl-7', this)">
+            <div class="tpl-swatch" style="background: linear-gradient(135deg, #FFFFFF 60%, #000000 60%);"></div>
+            <div class="tpl-info">
+              <h4>7. Swiss Grid</h4>
+              <p>Light • Bauhaus</p>
+            </div>
+          </div>
+
+          <div class="template-card-btn" onclick="applyTemplate('style-tpl-8', this)">
+            <div class="tpl-swatch" style="background: linear-gradient(135deg, #F8FAFC 50%, #EFF6FF 50%);"></div>
+            <div class="tpl-info">
+              <h4>8. FinTech Split</h4>
+              <p>Light • Two-Tone</p>
+            </div>
+          </div>
+
+          <div class="template-card-btn" onclick="applyTemplate('style-tpl-9', this)">
+            <div class="tpl-swatch" style="background: linear-gradient(135deg, #FAF5FF 60%, #9333EA 60%);"></div>
+            <div class="tpl-info">
+              <h4>9. Lavender Mist</h4>
+              <p>Light • Lilac Tech</p>
+            </div>
+          </div>
+
+          <div class="template-card-btn" onclick="applyTemplate('style-tpl-10', this)">
+            <div class="tpl-swatch" style="background: linear-gradient(135deg, #0A0A0C 60%, #D4AF37 60%);"></div>
+            <div class="tpl-info">
+              <h4>10. Obsidian Gold</h4>
+              <p>Dark • Cyber Gold</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Uploads: Profile Photo, Front Logo, Back Logo (3 Separate Fields) -->
+      <div class="panel-box">
+        <div class="box-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+          Upload Photo & Separate Logos
+        </div>
+        <div class="upload-row">
+          <!-- Profile Photo -->
+          <div class="drop-card" title="Upload Profile Picture">
+            <input type="file" id="upload-photo" accept="image/*" onchange="loadPhoto(event)">
+            <img id="thumb-photo" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Avatar">
+            <span class="drop-label">Profile Photo</span>
+          </div>
+
+          <!-- Front Logo -->
+          <div class="drop-card" title="Upload Custom Front Logo">
+            <input type="file" id="upload-front-logo" accept="image/*" onchange="loadFrontLogo(event)">
+            <div style="width:32px; height:32px; background:#0B1019; border-radius:6px; display:flex; align-items:center; justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <span class="drop-label">Front Logo</span>
+          </div>
+
+          <!-- Back Logo -->
+          <div class="drop-card" title="Upload Custom Back Logo">
+            <input type="file" id="upload-back-logo" accept="image/*" onchange="loadBackLogo(event)">
+            <div style="width:32px; height:32px; background:#0B1019; border-radius:6px; display:flex; align-items:center; justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+            </div>
+            <span class="drop-label">Back Logo</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Canva-Style Visual Alignment & Size Control Studio -->
+      <div class="panel-box">
+        <div class="box-header" style="justify-content: space-between;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            Canvas Alignment & Size Studio
+          </div>
+          <button class="btn btn-secondary" style="padding:2px 8px; font-size:0.68rem;" onclick="resetAdjustments()">Reset</button>
+        </div>
+
+        <!-- BACK CARD ALIGNMENT CONTROLS -->
+        <div style="margin-bottom:14px; border-bottom:1px solid rgba(148,163,184,0.15); padding-bottom:12px;">
+          <div style="font-size:0.75rem; font-weight:800; color:#38BDF8; margin-bottom:8px; display:flex; align-items:center; gap:5px;">
+            <span>🔄 Back Side Controls</span>
+          </div>
+          
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Back Logo Size</span>
+              <span class="tune-slider-val" id="val-back-logo-size">46px</span>
+            </div>
+            <input type="range" id="slider-back-logo-size" class="range-input" min="20" max="90" value="46" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Back Logo Up / Down (↕)</span>
+              <span class="tune-slider-val" id="val-back-logo-y">0px</span>
+            </div>
+            <input type="range" id="slider-back-logo-y" class="range-input" min="-35" max="45" value="0" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Back Logo Left / Right (↔)</span>
+              <span class="tune-slider-val" id="val-back-logo-x">0px</span>
+            </div>
+            <input type="range" id="slider-back-logo-x" class="range-input" min="-40" max="40" value="0" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Gap Between Logo & Text</span>
+              <span class="tune-slider-val" id="val-back-gap">8px</span>
+            </div>
+            <input type="range" id="slider-back-gap" class="range-input" min="0" max="40" value="8" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Headline & Tagline Up / Down (↕)</span>
+              <span class="tune-slider-val" id="val-back-text-y">0px</span>
+            </div>
+            <input type="range" id="slider-back-text-y" class="range-input" min="-35" max="35" value="0" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Headline Font Size</span>
+              <span class="tune-slider-val" id="val-back-font-size">1.05rem</span>
+            </div>
+            <input type="range" id="slider-back-font-size" class="range-input" min="75" max="160" value="105" oninput="applyAdjustments()">
+          </div>
+
+          <!-- Address Line Controls -->
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Address Line Up / Down (↕)</span>
+              <span class="tune-slider-val" id="val-back-address-y">0px</span>
+            </div>
+            <input type="range" id="slider-back-address-y" class="range-input" min="-30" max="30" value="0" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Address Line Left / Right (↔)</span>
+              <span class="tune-slider-val" id="val-back-address-x">0px</span>
+            </div>
+            <input type="range" id="slider-back-address-x" class="range-input" min="-30" max="30" value="0" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Address Font Size</span>
+              <span class="tune-slider-val" id="val-back-address-size">0.58rem</span>
+            </div>
+            <input type="range" id="slider-back-address-size" class="range-input" min="45" max="90" value="58" oninput="applyAdjustments()">
+          </div>
+
+          <!-- Back Separator Line Controls -->
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Separator Line Up / Down (↕)</span>
+              <span class="tune-slider-val" id="val-back-line-y">0px</span>
+            </div>
+            <input type="range" id="slider-back-line-y" class="range-input" min="-30" max="30" value="0" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Separator Line Visibility</span>
+              <span class="tune-slider-val" id="val-back-line-opacity">20%</span>
+            </div>
+            <input type="range" id="slider-back-line-opacity" class="range-input" min="0" max="100" value="20" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Website & Global Up / Down (↕)</span>
+              <span class="tune-slider-val" id="val-back-footer-y">0px</span>
+            </div>
+            <input type="range" id="slider-back-footer-y" class="range-input" min="-25" max="25" value="0" oninput="applyAdjustments()">
+          </div>
+        </div>
+
+        <!-- FRONT CARD ALIGNMENT CONTROLS -->
+        <div>
+          <div style="font-size:0.75rem; font-weight:800; color:#38BDF8; margin-bottom:8px; display:flex; align-items:center; gap:5px;">
+            <span>👤 Front Side Controls</span>
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Photo Size Scale</span>
+              <span class="tune-slider-val" id="val-photo-size">100%</span>
+            </div>
+            <input type="range" id="slider-photo-size" class="range-input" min="60" max="150" value="100" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Photo Left / Right (↔)</span>
+              <span class="tune-slider-val" id="val-photo-x">0px</span>
+            </div>
+            <input type="range" id="slider-photo-x" class="range-input" min="-35" max="35" value="0" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Photo Up / Down (↕)</span>
+              <span class="tune-slider-val" id="val-photo-y">0px</span>
+            </div>
+            <input type="range" id="slider-photo-y" class="range-input" min="-25" max="25" value="0" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Front Logo Size</span>
+              <span class="tune-slider-val" id="val-front-logo-size">24px</span>
+            </div>
+            <input type="range" id="slider-front-logo-size" class="range-input" min="16" max="50" value="24" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Front Logo Up / Down (↕)</span>
+              <span class="tune-slider-val" id="val-front-logo-y">0px</span>
+            </div>
+            <input type="range" id="slider-front-logo-y" class="range-input" min="-15" max="20" value="0" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Top Line Up / Down (↕)</span>
+              <span class="tune-slider-val" id="val-front-top-line-y">0px</span>
+            </div>
+            <input type="range" id="slider-front-top-line-y" class="range-input" min="-15" max="20" value="0" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Name & Role Up / Down (↕)</span>
+              <span class="tune-slider-val" id="val-front-text-y">0px</span>
+            </div>
+            <input type="range" id="slider-front-text-y" class="range-input" min="-25" max="25" value="0" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Tech Tags Up / Down (↕)</span>
+              <span class="tune-slider-val" id="val-front-tags-y">0px</span>
+            </div>
+            <input type="range" id="slider-front-tags-y" class="range-input" min="-20" max="20" value="0" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Contact Info Up / Down (↕)</span>
+              <span class="tune-slider-val" id="val-front-contact-y">0px</span>
+            </div>
+            <input type="range" id="slider-front-contact-y" class="range-input" min="-20" max="20" value="0" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Bottom Line Up / Down (↕)</span>
+              <span class="tune-slider-val" id="val-front-bottom-line-y">0px</span>
+            </div>
+            <input type="range" id="slider-front-bottom-line-y" class="range-input" min="-20" max="20" value="0" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Front Lines Visibility</span>
+              <span class="tune-slider-val" id="val-front-lines-opacity">25%</span>
+            </div>
+            <input type="range" id="slider-front-lines-opacity" class="range-input" min="0" max="100" value="25" oninput="applyAdjustments()">
+          </div>
+
+          <!-- QR Scanner Adjustments -->
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>QR Scanner Box Size</span>
+              <span class="tune-slider-val" id="val-front-qr-size">66px</span>
+            </div>
+            <input type="range" id="slider-front-qr-size" class="range-input" min="45" max="85" value="66" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>QR Scanner Up / Down (↕)</span>
+              <span class="tune-slider-val" id="val-front-qr-y">0px</span>
+            </div>
+            <input type="range" id="slider-front-qr-y" class="range-input" min="-20" max="20" value="0" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>QR Scanner Left / Right (↔)</span>
+              <span class="tune-slider-val" id="val-front-qr-x">0px</span>
+            </div>
+            <input type="range" id="slider-front-qr-x" class="range-input" min="-25" max="25" value="0" oninput="applyAdjustments()">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Personal & Role Info -->
+      <div class="panel-box">
+        <div class="box-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Personal & Role Details
+        </div>
+        <div class="fields-grid">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="inp-name" class="text-input" value="Nomeshwer Sharma" oninput="renderCard()">
+          </div>
+          <div class="form-group">
+            <label>Photo Pill Label</label>
+            <input type="text" id="inp-founder-pill" class="text-input" value="FOUNDER" oninput="renderCard()">
+          </div>
+          <div class="form-group col-full">
+            <label>Star Role Badge</label>
+            <input type="text" id="inp-role-badge" class="text-input" value="Founder & Automation Architect" oninput="renderCard()">
+          </div>
+          <div class="form-group col-full">
+            <label>Sub-Skills / Specializations</label>
+            <input type="text" id="inp-subskills" class="text-input" value="Frappe & ERPNext • AppSheet • Rational Workflows" oninput="renderCard()">
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact & QR Generator -->
+      <div class="panel-box">
+        <div class="box-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+          Contact Details & QR Target Link
+        </div>
+        <div class="fields-grid">
+          <div class="form-group col-full">
+            <label>QR Code Target Link (Opens URL when scanned)</label>
+            <input type="url" id="inp-qr-link" class="text-input" value="https://ommnomi.in/associate/whardiksharma" placeholder="https://ommnomi.in/associate/whardiksharma" oninput="renderCard()">
+          </div>
+          <div class="form-group col-full">
+            <label>Email Address</label>
+            <input type="email" id="inp-email" class="text-input" value="nomeshwer@ommnomi.in" oninput="renderCard()">
+          </div>
+          <div class="form-group col-full">
+            <label>Phone Number</label>
+            <input type="text" id="inp-phone" class="text-input" value="+91 98765 43210" oninput="renderCard()">
+          </div>
+          <div class="form-group col-full">
+            <label>Website (ommnomi.in)</label>
+            <input type="text" id="inp-website" class="text-input" value="ommnomi.in" oninput="renderCard()">
+          </div>
+        </div>
+      </div>
+
+      <!-- Back Side Content -->
+      <div class="panel-box">
+        <div class="box-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          Back Side: Branding & Headline
+        </div>
+        <div class="fields-grid">
+          <div class="form-group col-full">
+            <label>Headline Line (Centered)</label>
+            <input type="text" id="inp-headline" class="text-input" value="Get back control in your business." oninput="renderCard()">
+          </div>
+          <div class="form-group col-full">
+            <label>Tagline / Mission Line</label>
+            <input type="text" id="inp-slogan" class="text-input" value="Engineering self-sustaining, intelligent operational ecosystems." oninput="renderCard()">
+          </div>
+          <div class="form-group col-full">
+            <label>Office Address</label>
+            <input type="text" id="inp-address" class="text-input" value="1/1 Village Kalouta, PO Mahunag, Mandi, HP, India 175010" oninput="renderCard()">
+          </div>
+          <div class="form-group col-full">
+            <label>Global Reach Line</label>
+            <input type="text" id="inp-global" class="text-input" value="Global: India • Singapore • USA" oninput="renderCard()">
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- RIGHT STAGE: 3D Live Preview -->
+    <main class="stage-pane">
+      
+      <div class="stage-switch">
+        <button id="btn-tab-front" class="switch-btn active" onclick="flipTo(false)">Front Side</button>
+        <button id="btn-tab-back" class="switch-btn" onclick="flipTo(true)">Back Side</button>
+        <button class="btn btn-secondary" style="padding: 4px 12px; font-size: 0.76rem;" onclick="toggleFlip()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+          Flip 3D
+        </button>
+      </div>
+
+      <!-- 3D Card Object -->
+      <div class="card-3d-wrapper">
+        <div id="main-card-element" class="card-flipper style-tpl-1" onclick="toggleFlip()">
+          
+          <!-- ================= CARD FRONT ================= -->
+          <div class="card-side side-front">
+            <div class="card-accent-stripe"></div>
+            
+            <!-- Graphic Background Pattern (Fills Empty Space Elegantly) -->
+            <div class="card-bg-overlay">
+              <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.05;">
+                <defs>
+                  <pattern id="grid-pattern-front" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid-pattern-front)" />
+                <circle cx="85%" cy="30%" r="90" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4,4"/>
+                <circle cx="85%" cy="30%" r="60" fill="none" stroke="currentColor" stroke-width="1"/>
+              </svg>
+            </div>
+
+            <div class="card-content-area">
+              
+              <!-- Front Top Bar -->
+              <div class="front-top-bar">
+                <div id="front-logo-render-target">
+                  <img src="assets/ommnomi-logo.svg" class="card-brand-logo" alt="OmmNoMi">
+                </div>
+                <div class="top-meta-badge">
+                  <span>★ Enterprise Solutions</span>
+                </div>
+              </div>
+
+              <!-- Front Center Grid (Proportioned & Graphic Rich) -->
+              <div class="front-center-grid">
+                
+                <!-- Left: Photo Box -->
+                <div class="photo-wrapper">
+                  <div class="photo-box-border">
+                    <img id="card-photo-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Profile">
+                  </div>
+                  <div class="founder-badge-pill" id="card-founder-pill">FOUNDER</div>
+                </div>
+
+                <!-- Right: Identity & Tech Tags Stack (No Empty Gaps) -->
+                <div class="identity-stack">
+                  <div class="person-name" id="card-name-text">Nomeshwer Sharma</div>
+                  <div class="badge-star-pill">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <span id="card-role-text">Founder & Automation Architect</span>
+                  </div>
+                  <div class="subskills-text" id="card-subskills-text">Frappe & ERPNext • AppSheet • Rational Workflows</div>
+                  
+                  <!-- Tech Specialization Badges Strip -->
+                  <div class="tech-tags-strip">
+                    <span class="tech-tag-pill">⚡ ERPNext</span>
+                    <span class="tech-tag-pill">☁️ Workspace</span>
+                    <span class="tech-tag-pill">🤖 AI Automation</span>
+                    <span class="tech-tag-pill">📱 AppSheet</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Front Bottom Row -->
+              <div class="front-bottom-grid">
+                <div class="contact-lines-box">
+                  <div class="contact-row-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    <span id="card-email-text">nomeshwer@ommnomi.in</span>
+                  </div>
+                  <div class="contact-row-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <span id="card-phone-text">+91 98765 43210</span>
+                  </div>
+                </div>
+
+                <div class="qr-badge-column">
+                  <div class="qr-white-card">
+                    <div id="qrcode-target"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ================= CARD BACK ================= -->
+          <div class="card-side side-back">
+            <div class="card-accent-stripe"></div>
+            
+            <div class="card-bg-overlay">
+              <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.05;">
+                <defs>
+                  <pattern id="grid-pattern-back" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid-pattern-back)" />
+                <circle cx="15%" cy="75%" r="70" fill="none" stroke="currentColor" stroke-width="1"/>
+              </svg>
+            </div>
+
+            <div class="back-content-area">
+              
+              <!-- Unified Center Brand Block (Tight, Natural Space) -->
+              <div class="back-hero-brand-group">
+                <div class="back-logo-hero" id="back-logo-render-target">
+                  <img src="assets/ommnomi-logo.svg" id="back-logo-img" class="card-brand-logo-back" alt="OmmNoMi">
+                </div>
+
+                <div class="back-center-text-group">
+                  <div class="back-headline-text" id="card-headline-text">
+                    Get back control in your business.
+                  </div>
+                  <div class="back-mission-text" id="card-slogan-text">
+                    Engineering self-sustaining, intelligent operational ecosystems.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Back Bottom Address & Web Matrix (Centered) -->
+              <div class="back-footer-centered">
+                <div class="address-col-centered" id="card-address-text">
+                  1/1 Village Kalouta, PO Mahunag, Mandi, HP, India 175010
+                </div>
+                <div class="back-site-badge-group">
+                  <div class="site-pill" id="card-site-text">ommnomi.in</div>
+                  <div class="global-presence-text" id="card-global-text">Global: India • Singapore • USA</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="flip-instruction">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 0 0 0 12h3"/></svg>
+        Click the card or use toolbar to flip between front & back views
+      </div>
+
+    </main>
+  </div>
+
+  <!-- A4 PRINT & DUPLEX MODAL -->
+  <div id="print-sheet-modal" class="print-overlay">
+    
+    <div class="print-action-bar">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0052FF" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect width="12" height="8" x="6" y="14"></rect></svg>
+        <div>
+          <h3 style="font-size:1rem; font-weight:800; color:#fff;">A4 Duplex Ready Print Engine</h3>
+          <p style="font-size:0.75rem; color:#94A3B8;">8 exact standard cards (88.9mm × 50.8mm) per page with crop cutting guides</p>
+        </div>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:10px;">
+        <button class="btn btn-secondary" onclick="closePrintModal()">Close</button>
+        <button class="btn btn-print" onclick="window.print()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect width="12" height="8" x="6" y="14"></rect></svg>
+          Print Now (Ctrl + P)
+        </button>
+      </div>
+    </div>
+
+    <!-- A4 Paper Output -->
+    <div class="a4-sheets-wrapper">
+      
+      <!-- PAGE 1: 8 FRONTS -->
+      <div class="a4-paper-sheet" id="print-page-1">
+        <div class="a4-cards-grid" id="grid-fronts-target"></div>
+      </div>
+
+      <!-- PAGE 2: 8 BACKS (HORIZONTALLY MIRRORED FOR DUPLEX ALIGNMENT) -->
+      <div class="a4-paper-sheet" id="print-page-2">
+        <div class="a4-cards-grid" id="grid-backs-target"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Pure JS QR Engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
+    // State
+    const state = {
+      name: "Nomeshwer Sharma",
+      founderPill: "FOUNDER",
+      roleBadge: "Founder & Automation Architect",
+      subskills: "Frappe & ERPNext • AppSheet • Rational Workflows",
+      email: "nomeshwer@ommnomi.in",
+      phone: "+91 98765 43210",
+      website: "ommnomi.in",
+      qrLink: "https://ommnomi.in/associate/whardiksharma",
+      headline: "Get back control in your business.",
+      slogan: "Engineering self-sustaining, intelligent operational ecosystems.",
+      address: "1/1 Village Kalouta, PO Mahunag, Mandi, HP, India 175010",
+      global: "Global: India • Singapore • USA",
+      photoUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+      frontLogoUrl: null,
+      backLogoUrl: null,
+      currentTheme: "style-tpl-1"
+    };
+
+    let qrcodeObj = null;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCard();
+      applyAdjustments();
+    });
+
+    // Flip logic
+    function toggleFlip() {
+      const card = document.getElementById('main-card-element');
+      const isFlipped = card.classList.toggle('is-flipped');
+      updateTabBtns(isFlipped);
+    }
+
+    function flipTo(isBack) {
+      const card = document.getElementById('main-card-element');
+      if (isBack) card.classList.add('is-flipped');
+      else card.classList.remove('is-flipped');
+      updateTabBtns(isBack);
+    }
+
+    function updateTabBtns(isBack) {
+      document.getElementById('btn-tab-front').classList.toggle('active', !isBack);
+      document.getElementById('btn-tab-back').classList.toggle('active', isBack);
+    }
+
+    // 10 Templates Selector
+    function applyTemplate(styleClass, elem) {
+      state.currentTheme = styleClass;
+      document.getElementById('main-card-element').className = `card-flipper ${styleClass}`;
+      document.querySelectorAll('.template-card-btn').forEach(b => b.classList.remove('active'));
+      if (elem) elem.classList.add('active');
+
+      if (document.getElementById('print-sheet-modal').classList.contains('is-visible')) {
+        populateA4Grids();
+      }
+    }
+
+    // 3 Separate Upload Handlers (Photo, Front Logo, Back Logo)
+    function loadPhoto(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const r = new FileReader();
+        r.onload = ev => {
+          state.photoUrl = ev.target.result;
+          document.getElementById('card-photo-img').src = state.photoUrl;
+          document.getElementById('thumb-photo').src = state.photoUrl;
+        };
+        r.readAsDataURL(file);
+      }
+    }
+
+    function loadFrontLogo(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const r = new FileReader();
+        r.onload = ev => {
+          state.frontLogoUrl = ev.target.result;
+          updateFrontLogoDisplay();
+        };
+        r.readAsDataURL(file);
+      }
+    }
+
+    function loadBackLogo(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const r = new FileReader();
+        r.onload = ev => {
+          state.backLogoUrl = ev.target.result;
+          updateBackLogoDisplay();
+        };
+        r.readAsDataURL(file);
+      }
+    }
+
+    // Automatic transparent background generator for exact logo
+    function removeBgFromImage(imgElement, callback) {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = Math.max(imgElement.naturalWidth || 0, 700);
+      canvas.height = Math.max(imgElement.naturalHeight || 0, 90);
+
+      ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const d = imgData.data;
+
+      for (let i = 0; i < d.length; i += 4) {
+        const r = d[i];
+        const g = d[i + 1];
+        const b = d[i + 2];
+        if (r > 235 && g > 235 && b > 235) {
+          const brightness = (r + g + b) / 3;
+          if (brightness > 248) {
+            d[i + 3] = 0;
+          } else {
+            d[i + 3] = Math.round((255 - brightness) * (255 / 20));
+          }
+        }
+      }
+
+      ctx.putImageData(imgData, 0, 0);
+      callback(canvas.toDataURL('image/png'));
+    }
+
+    function updateFrontLogoDisplay() {
+      const frontTarget = document.getElementById('front-logo-render-target');
+      const headerLogo = document.querySelector('.brand-logo-img');
+      const logoSrc = state.frontLogoUrl || "assets/ommnomi-logo.svg";
+
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => {
+        removeBgFromImage(img, (transparentDataUrl) => {
+          if (frontTarget) frontTarget.innerHTML = `<img src="${transparentDataUrl}" class="card-brand-logo" alt="Front Logo">`;
+          if (headerLogo) headerLogo.src = transparentDataUrl;
+        });
+      };
+      img.src = logoSrc;
+    }
+
+    function updateBackLogoDisplay() {
+      const backTarget = document.getElementById('back-logo-render-target');
+      const logoSrc = state.backLogoUrl || "assets/ommnomi-logo.svg";
+
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => {
+        removeBgFromImage(img, (transparentDataUrl) => {
+          if (backTarget) backTarget.innerHTML = `<img src="${transparentDataUrl}" class="card-brand-logo-back" alt="Back Logo">`;
+        });
+      };
+      img.src = logoSrc;
+    }
+
+    function updateLogoDisplay() {
+      updateFrontLogoDisplay();
+      updateBackLogoDisplay();
+    }
+
+    // Canva-Style Visual Alignment & Size Tuning Engine (Full Granular Field Control)
+    function applyAdjustments() {
+      // Back side sliders
+      const backLogoSize = document.getElementById('slider-back-logo-size').value;
+      const backLogoY = document.getElementById('slider-back-logo-y').value;
+      const backLogoX = document.getElementById('slider-back-logo-x').value;
+      const backGap = document.getElementById('slider-back-gap').value;
+      const backTextY = document.getElementById('slider-back-text-y').value;
+      const backFontSize = document.getElementById('slider-back-font-size').value;
+      const backAddressY = document.getElementById('slider-back-address-y').value;
+      const backAddressX = document.getElementById('slider-back-address-x').value;
+      const backAddressSize = document.getElementById('slider-back-address-size').value;
+      const backLineY = document.getElementById('slider-back-line-y').value;
+      const backLineOpacity = document.getElementById('slider-back-line-opacity').value;
+      const backFooterY = document.getElementById('slider-back-footer-y').value;
+
+      // Front side sliders
+      const photoSize = document.getElementById('slider-photo-size').value;
+      const photoX = document.getElementById('slider-photo-x').value;
+      const photoY = document.getElementById('slider-photo-y').value;
+      const frontLogoSize = document.getElementById('slider-front-logo-size').value;
+      const frontLogoY = document.getElementById('slider-front-logo-y').value;
+      const frontTopLineY = document.getElementById('slider-front-top-line-y').value;
+      const frontTextY = document.getElementById('slider-front-text-y').value;
+      const frontTagsY = document.getElementById('slider-front-tags-y').value;
+      const frontContactY = document.getElementById('slider-front-contact-y').value;
+      const frontBottomLineY = document.getElementById('slider-front-bottom-line-y').value;
+      const frontLinesOpacity = document.getElementById('slider-front-lines-opacity').value;
+      const frontQrSize = document.getElementById('slider-front-qr-size').value;
+      const frontQrY = document.getElementById('slider-front-qr-y').value;
+      const frontQrX = document.getElementById('slider-front-qr-x').value;
+
+      // Update Labels
+      document.getElementById('val-back-logo-size').textContent = backLogoSize + 'px';
+      document.getElementById('val-back-logo-y').textContent = (backLogoY > 0 ? '+' : '') + backLogoY + 'px';
+      document.getElementById('val-back-logo-x').textContent = (backLogoX > 0 ? '+' : '') + backLogoX + 'px';
+      document.getElementById('val-back-gap').textContent = backGap + 'px';
+      document.getElementById('val-back-text-y').textContent = (backTextY > 0 ? '+' : '') + backTextY + 'px';
+      document.getElementById('val-back-font-size').textContent = (backFontSize / 100).toFixed(2) + 'rem';
+      document.getElementById('val-back-address-y').textContent = (backAddressY > 0 ? '+' : '') + backAddressY + 'px';
+      document.getElementById('val-back-address-x').textContent = (backAddressX > 0 ? '+' : '') + backAddressX + 'px';
+      document.getElementById('val-back-address-size').textContent = (backAddressSize / 100).toFixed(2) + 'rem';
+      document.getElementById('val-back-line-y').textContent = (backLineY > 0 ? '+' : '') + backLineY + 'px';
+      document.getElementById('val-back-line-opacity').textContent = backLineOpacity + '%';
+      document.getElementById('val-back-footer-y').textContent = (backFooterY > 0 ? '+' : '') + backFooterY + 'px';
+
+      document.getElementById('val-photo-size').textContent = photoSize + '%';
+      document.getElementById('val-photo-x').textContent = (photoX > 0 ? '+' : '') + photoX + 'px';
+      document.getElementById('val-photo-y').textContent = (photoY > 0 ? '+' : '') + photoY + 'px';
+      document.getElementById('val-front-logo-size').textContent = frontLogoSize + 'px';
+      document.getElementById('val-front-logo-y').textContent = (frontLogoY > 0 ? '+' : '') + frontLogoY + 'px';
+      document.getElementById('val-front-top-line-y').textContent = (frontTopLineY > 0 ? '+' : '') + frontTopLineY + 'px';
+      document.getElementById('val-front-text-y').textContent = (frontTextY > 0 ? '+' : '') + frontTextY + 'px';
+      document.getElementById('val-front-tags-y').textContent = (frontTagsY > 0 ? '+' : '') + frontTagsY + 'px';
+      document.getElementById('val-front-contact-y').textContent = (frontContactY > 0 ? '+' : '') + frontContactY + 'px';
+      document.getElementById('val-front-bottom-line-y').textContent = (frontBottomLineY > 0 ? '+' : '') + frontBottomLineY + 'px';
+      document.getElementById('val-front-lines-opacity').textContent = frontLinesOpacity + '%';
+      document.getElementById('val-front-qr-size').textContent = frontQrSize + 'px';
+      document.getElementById('val-front-qr-y').textContent = (frontQrY > 0 ? '+' : '') + frontQrY + 'px';
+      document.getElementById('val-front-qr-x').textContent = (frontQrX > 0 ? '+' : '') + frontQrX + 'px';
+
+      // Set CSS Variables on document root
+      const root = document.documentElement;
+      root.style.setProperty('--back-logo-h', backLogoSize + 'px');
+      root.style.setProperty('--back-logo-y', backLogoY + 'px');
+      root.style.setProperty('--back-logo-x', backLogoX + 'px');
+      root.style.setProperty('--back-gap', backGap + 'px');
+      root.style.setProperty('--back-text-y', backTextY + 'px');
+      root.style.setProperty('--back-font-size', (backFontSize / 100) + 'rem');
+      root.style.setProperty('--back-address-y', backAddressY + 'px');
+      root.style.setProperty('--back-address-x', backAddressX + 'px');
+      root.style.setProperty('--back-address-size', (backAddressSize / 100) + 'rem');
+      root.style.setProperty('--back-line-y', backLineY + 'px');
+      root.style.setProperty('--back-line-opacity', (backLineOpacity / 100).toString());
+      root.style.setProperty('--back-footer-y', backFooterY + 'px');
+
+      root.style.setProperty('--front-photo-scale', (photoSize / 100).toString());
+      root.style.setProperty('--front-photo-x', photoX + 'px');
+      root.style.setProperty('--front-photo-y', photoY + 'px');
+      root.style.setProperty('--front-logo-h', frontLogoSize + 'px');
+      root.style.setProperty('--front-logo-y', frontLogoY + 'px');
+      root.style.setProperty('--front-top-line-y', frontTopLineY + 'px');
+      root.style.setProperty('--front-top-line-opacity', (frontLinesOpacity / 100).toString());
+      root.style.setProperty('--front-text-y', frontTextY + 'px');
+      root.style.setProperty('--front-tags-y', frontTagsY + 'px');
+      root.style.setProperty('--front-contact-y', frontContactY + 'px');
+      root.style.setProperty('--front-bottom-line-y', frontBottomLineY + 'px');
+      root.style.setProperty('--front-bottom-line-opacity', (frontLinesOpacity / 100).toString());
+      root.style.setProperty('--front-qr-size', frontQrSize + 'px');
+      root.style.setProperty('--front-qr-y', frontQrY + 'px');
+      root.style.setProperty('--front-qr-x', frontQrX + 'px');
+    }
+
+    function resetAdjustments() {
+      document.getElementById('slider-back-logo-size').value = 46;
+      document.getElementById('slider-back-logo-y').value = 0;
+      document.getElementById('slider-back-logo-x').value = 0;
+      document.getElementById('slider-back-gap').value = 8;
+      document.getElementById('slider-back-text-y').value = 0;
+      document.getElementById('slider-back-font-size').value = 105;
+      document.getElementById('slider-back-address-y').value = 0;
+      document.getElementById('slider-back-address-x').value = 0;
+      document.getElementById('slider-back-address-size').value = 58;
+      document.getElementById('slider-back-line-y').value = 0;
+      document.getElementById('slider-back-line-opacity').value = 20;
+      document.getElementById('slider-back-footer-y').value = 0;
+
+      document.getElementById('slider-photo-size').value = 100;
+      document.getElementById('slider-photo-x').value = 0;
+      document.getElementById('slider-photo-y').value = 0;
+      document.getElementById('slider-front-logo-size').value = 24;
+      document.getElementById('slider-front-logo-y').value = 0;
+      document.getElementById('slider-front-top-line-y').value = 0;
+      document.getElementById('slider-front-text-y').value = 0;
+      document.getElementById('slider-front-tags-y').value = 0;
+      document.getElementById('slider-front-contact-y').value = 0;
+      document.getElementById('slider-front-bottom-line-y').value = 0;
+      document.getElementById('slider-front-lines-opacity').value = 25;
+      document.getElementById('slider-front-qr-size').value = 66;
+      document.getElementById('slider-front-qr-y').value = 0;
+      document.getElementById('slider-front-qr-x').value = 0;
+
+      applyAdjustments();
+    }
+
+    // Live Render
+    function renderCard() {
+      state.name = document.getElementById('inp-name').value || "Nomeshwer Sharma";
+      state.founderPill = document.getElementById('inp-founder-pill').value || "FOUNDER";
+      state.roleBadge = document.getElementById('inp-role-badge').value || "Founder & Automation Architect";
+      state.subskills = document.getElementById('inp-subskills').value || "Frappe & ERPNext • AppSheet • Rational Workflows";
+      state.email = document.getElementById('inp-email').value || "nomeshwer@ommnomi.in";
+      state.phone = document.getElementById('inp-phone').value || "+91 98765 43210";
+      state.website = document.getElementById('inp-website').value || "ommnomi.in";
+      state.qrLink = (document.getElementById('inp-qr-link') && document.getElementById('inp-qr-link').value) ? document.getElementById('inp-qr-link').value : "https://ommnomi.in/associate/whardiksharma";
+      state.headline = document.getElementById('inp-headline').value || "Get back control in your business.";
+      state.slogan = document.getElementById('inp-slogan').value || "Engineering self-sustaining, intelligent operational ecosystems.";
+      state.address = document.getElementById('inp-address').value || "1/1 Village Kalouta, PO Mahunag, Mandi, HP, India 175010";
+      state.global = document.getElementById('inp-global').value || "Global: India • Singapore • USA";
+
+      // Apply Front Values
+      document.getElementById('card-name-text').textContent = state.name;
+      document.getElementById('card-founder-pill').textContent = state.founderPill;
+      document.getElementById('card-role-text').textContent = state.roleBadge;
+      document.getElementById('card-subskills-text').textContent = state.subskills;
+      document.getElementById('card-email-text').textContent = state.email;
+      document.getElementById('card-phone-text').textContent = state.phone;
+
+      // Apply Back Values
+      document.getElementById('card-headline-text').textContent = state.headline;
+      document.getElementById('card-slogan-text').textContent = state.slogan;
+      document.getElementById('card-address-text').textContent = state.address;
+      document.getElementById('card-site-text').textContent = state.website;
+      document.getElementById('card-global-text').textContent = state.global;
+
+      // Update Logos & QR
+      updateLogoDisplay();
+      buildQRCode();
+    }
+
+    // High-Resolution Permanent QR Generator for Direct URL Link
+    function buildQRCode() {
+      const qrEl = document.getElementById('qrcode-target');
+      if (!qrEl) return;
+      qrEl.innerHTML = "";
+
+      let targetUrl = (state.qrLink || "").trim();
+      if (!targetUrl) {
+        targetUrl = "https://ommnomi.in/associate/whardiksharma";
+      } else if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
+        targetUrl = `https://${targetUrl}`;
+      }
+
+      const qrImg = document.createElement('img');
+      qrImg.className = "qr-code-img";
+      qrImg.alt = "Scan Profile";
+      qrImg.crossOrigin = "anonymous";
+      
+      const encodedUrl = encodeURIComponent(targetUrl);
+      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&margin=2&format=svg&data=${encodedUrl}`;
+
+      qrImg.onerror = () => {
+        qrEl.innerHTML = "";
+        try {
+          new QRCode(qrEl, {
+            text: targetUrl,
+            width: 56,
+            height: 56,
+            colorDark: "#000000",
+            colorLight: "#FFFFFF",
+            correctLevel: QRCode.CorrectLevel.H
+          });
+        } catch (err) {
+          console.warn("QR code fallback error:", err);
+        }
+      };
+
+      qrEl.appendChild(qrImg);
+    }
+
+    // ================= A4 PRINT MODAL & GRID BUILDER =================
+    function openPrintModal() {
+      populateA4Grids();
+      document.getElementById('print-sheet-modal').classList.add('is-visible');
+    }
+
+    function closePrintModal() {
+      document.getElementById('print-sheet-modal').classList.remove('is-visible');
+    }
+
+    function populateA4Grids() {
+      const frontTarget = document.getElementById('grid-fronts-target');
+      const backTarget = document.getElementById('grid-backs-target');
+
+      frontTarget.innerHTML = "";
+      backTarget.innerHTML = "";
+
+      const frontHTML = document.querySelector('.side-front').innerHTML;
+      const backHTML = document.querySelector('.side-back').innerHTML;
+
+      // 8 Cards Per Page (2 Columns x 4 Rows)
+      for (let i = 0; i < 8; i++) {
+        const cardFront = document.createElement('div');
+        cardFront.className = `print-card-box ${state.currentTheme}`;
+        cardFront.innerHTML = `
+          <div class="print-card-scaler ${state.currentTheme}">
+            ${frontHTML}
+          </div>
+        `;
+        frontTarget.appendChild(cardFront);
+      }
+
+      // Page 2 Mirrored Backs for duplex matching
+      for (let i = 0; i < 8; i++) {
+        const cardBack = document.createElement('div');
+        cardBack.className = `print-card-box ${state.currentTheme}`;
+        cardBack.innerHTML = `
+          <div class="print-card-scaler ${state.currentTheme}">
+            ${backHTML}
+          </div>
+        `;
+        backTarget.appendChild(cardBack);
+      }
+    }
+  </script>
+
+</body>
+</html>
