@@ -659,12 +659,14 @@
     }
 
     .card-brand-logo {
-      height: var(--front-logo-h, 24px);
-      transform: translateY(var(--front-logo-y, 0px));
+      height: auto;
+      max-height: var(--front-logo-h, 24px);
       width: auto;
-      max-width: 280px;
+      max-width: var(--front-logo-w, 220px);
       object-fit: contain;
-      transition: transform 0.05s, height 0.05s;
+      transform: translateY(var(--front-logo-y, 0px));
+      transition: transform 0.05s, max-height 0.05s, max-width 0.05s;
+      display: block;
     }
 
     .top-meta-badge {
@@ -868,7 +870,7 @@
     .back-content-area {
       position: relative;
       flex: 1;
-      padding: 22px 24px 18px 24px;
+      padding: 16px 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -890,16 +892,19 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0;
+      margin: 0 auto;
+      width: 100%;
     }
 
     .card-brand-logo-back {
-      height: var(--back-logo-h, 46px);
-      transform: translate(var(--back-logo-x, 0px), var(--back-logo-y, 0px));
+      height: auto;
+      max-height: var(--back-logo-h, 46px);
       width: auto;
-      max-width: 340px;
+      max-width: var(--back-logo-w, 340px);
       object-fit: contain;
-      transition: transform 0.05s, height 0.05s;
+      transform: translate(var(--back-logo-x, 0px), var(--back-logo-y, 0px));
+      transition: transform 0.05s, max-height 0.05s, max-width 0.05s;
+      display: block;
     }
 
     .back-center-text-group {
@@ -990,7 +995,7 @@
       margin-top: 16px;
     }
 
-    /* ================= A4 PRINT ENGINE (PERFECT SCALE FIT & NO OVERFLOW) ================= */
+    /* ================= A4 PRINT ENGINE (PRECISION DUPLEX & EPSON L3251 CALIBRATION) ================= */
     .print-overlay {
       position: fixed;
       inset: 0;
@@ -1000,76 +1005,406 @@
       display: none;
       flex-direction: column;
       overflow-y: auto;
-      padding: 20px;
+      padding: 16px 20px;
     }
 
     .print-overlay.is-visible {
       display: flex;
     }
 
-    .print-action-bar {
-      max-width: 1080px;
-      margin: 0 auto 20px auto;
+    .print-control-panel {
+      max-width: 1160px;
+      margin: 0 auto 16px auto;
       width: 100%;
+      background: var(--bg-panel);
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .print-bar-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: var(--bg-panel);
-      padding: 14px 20px;
-      border-radius: 12px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+      padding-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .print-tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      background: #0B1019;
+      padding: 12px;
+      border-radius: 10px;
       border: 1px solid var(--border-subtle);
+    }
+
+    .print-tool-card {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .print-tool-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #38BDF8;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .print-segmented-btn {
+      display: flex;
+      background: #152033;
+      border-radius: 7px;
+      padding: 2px;
+      border: 1px solid var(--border-subtle);
+      gap: 2px;
+    }
+
+    .print-seg-opt {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 6px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .print-seg-opt:hover {
+      color: #FFF;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .version-select-btn {
+      background: #0B1019;
+      border: 1.5px solid #1E293B;
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 3px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+    .version-select-btn:hover {
+      border-color: #38BDF8;
+      background: rgba(56, 189, 248, 0.06);
+    }
+    .version-select-btn.active {
+      border-color: #38BDF8;
+      background: rgba(56, 189, 248, 0.14);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+    }
+    .version-btn-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #38BDF8;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .version-select-btn.active .version-btn-badge {
+      color: #FFFFFF;
+    }
+    .version-btn-desc {
+      font-size: 0.63rem;
+      color: #94A3B8;
+      line-height: 1.3;
+    }
+
+    .epson-guide-banner {
+      background: linear-gradient(135deg, rgba(0, 82, 255, 0.14) 0%, rgba(56, 189, 248, 0.08) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.74rem;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .epson-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 10px;
+      width: 100%;
+    }
+
+    .epson-step-card {
+      background: #0B1019;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .epson-step-num {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #38BDF8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .epson-step-desc {
+      font-size: 0.71rem;
+      color: #E2E8F0;
+      line-height: 1.4;
+    }
+
+    .epson-step-diagram {
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 6px;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+      border: 1px dashed rgba(148, 163, 184, 0.25);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: #94A3B8;
+    }
+
+    .epson-badge {
+      background: #0052FF;
+      color: #FFF;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      letter-spacing: 0.05em;
+      box-shadow: 0 2px 8px rgba(0, 82, 255, 0.4);
     }
 
     .a4-sheets-wrapper {
       display: flex;
       flex-direction: column;
-      gap: 40px;
+      gap: 30px;
       align-items: center;
-      margin-bottom: 60px;
+      margin-bottom: 50px;
     }
 
+    /* EXACT A4 PAPER DIMENSIONS: 210mm x 297mm */
     .a4-paper-sheet {
       background: #FFFFFF;
       color: #000;
       width: 210mm;
       height: 297mm;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-      padding: 16mm 10mm;
       box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
     }
 
+    .a4-paper-sheet.hide-in-preview {
+      display: none !important;
+    }
+
+    /* Interactive Duplex X-Ray Hold-to-Light Superimpose Mode */
+    .xray-mode .a4-sheets-wrapper {
+      position: relative;
+      min-height: 310mm;
+    }
+    .xray-mode #print-sheet-page-1 {
+      position: relative;
+      opacity: 0.85;
+      outline: 3px solid #0284C7 !important;
+      z-index: 10;
+    }
+    .xray-mode #print-sheet-page-2 {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.65;
+      background: transparent !important;
+      outline: 3px dashed #F59E0B !important;
+      z-index: 15;
+      pointer-events: none;
+    }
+    .xray-mode #print-sheet-page-2 .a4-cards-grid {
+      background: rgba(245, 158, 11, 0.08);
+    }
+
+    /* Physical Feed Direction Watermark on A4 Paper */
+    .a4-feed-arrow-banner {
+      position: absolute;
+      top: 8mm;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      font-weight: 800;
+      color: #64748B;
+      letter-spacing: 0.05em;
+      pointer-events: none;
+      z-index: 12;
+      text-transform: uppercase;
+    }
+
+    .a4-feed-footer-banner {
+      position: absolute;
+      bottom: 8mm;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.56rem;
+      font-weight: 700;
+      color: #94A3B8;
+      letter-spacing: 0.06em;
+      pointer-events: none;
+      z-index: 12;
+    }
+
+    /* Page Label Watermark (visible on screen only, hidden in print) */
+    .a4-page-badge {
+      position: absolute;
+      top: 6mm;
+      left: 10mm;
+      background: #0F172A;
+      color: #38BDF8;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 4px;
+      z-index: 20;
+      pointer-events: none;
+      letter-spacing: 0.04em;
+    }
+
+    /* Precision Alignment Registration Crosshairs (⊕) - Placed safely in outer margins (Never touches cards) */
+    .reg-mark {
+      position: absolute;
+      width: 6mm;
+      height: 6mm;
+      pointer-events: none;
+      z-index: 15;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .reg-mark-top { top: 4mm; left: 50%; transform: translateX(-50%); }
+    .reg-mark-bottom { bottom: 4mm; left: 50%; transform: translateX(-50%); }
+    .reg-mark-left { left: 4mm; top: 50%; transform: translateY(-50%); }
+    .reg-mark-right { right: 4mm; top: 50%; transform: translateY(-50%); }
+
+    .reg-mark svg {
+      width: 100%;
+      height: 100%;
+      stroke: #94A3B8;
+      stroke-width: 0.5pt;
+    }
+
+    .hide-reg-marks .reg-mark {
+      display: none !important;
+    }
+
+    /* Background Graph Overlay Control */
+    .hide-bg-graph .card-bg-overlay {
+      display: none !important;
+    }
+
+    /* Page Content Grid Container */
+    .a4-grid-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center center;
+    }
+
+    /* Zero-Gap Continuous Cut Grid (Default 8 Cards: 2 cols x 4 rows) */
     .a4-cards-grid {
       display: grid;
-      grid-template-columns: repeat(2, 88.9mm);
-      grid-auto-rows: 50.8mm;
-      gap: 4mm 6mm;
+      grid-template-columns: repeat(2, var(--card-print-w, 88.9mm));
+      grid-auto-rows: var(--card-print-h, 50.8mm);
+      gap: 0mm 0mm; /* Zero gap for seamless single-cut */
       justify-content: center;
+      position: relative;
+    }
+
+    /* Spaced Grid Mode (4mm gap) */
+    .a4-cards-grid.mode-spaced {
+      gap: 4mm 6mm;
+    }
+
+    /* 10 Cards Grid Mode (2 cols x 5 rows) */
+    .a4-cards-grid.mode-10cards {
+      grid-template-columns: repeat(2, var(--card-print-w, 88.9mm));
+      grid-auto-rows: var(--card-print-h, 50.8mm);
+      gap: 0mm 0mm;
     }
 
     .print-card-box {
-      width: 88.9mm;
-      height: 50.8mm;
+      width: var(--card-print-w, 88.9mm);
+      height: var(--card-print-h, 50.8mm);
       position: relative;
       overflow: hidden;
       box-sizing: border-box;
-      border: 0.5pt dashed #94A3B8; /* Clean precision cut line */
-      border-radius: 2.5mm;
+      border: 0.25pt solid #CBD5E1; /* Clean hairline cutting guide */
       page-break-inside: avoid;
+    }
+
+    .print-card-box.dashed-cut {
+      border: 0.5pt dashed #94A3B8;
+    }
+
+    .print-card-box.no-cut-lines {
+      border: none;
     }
 
     .print-card-scaler {
       width: 540px;
       height: 308px;
-      transform: scale(0.6222); /* 336px / 540px */
+      transform: scale(var(--card-scale-x, 0.622222), var(--card-scale-y, 0.623377)); /* Exact 88.9mm x 50.8mm / 3.5in x 2.0in */
       transform-origin: top left;
       position: absolute;
       top: 0;
       left: 0;
       display: flex;
+    }
+
+    /* Short-Edge / 180° Inverted Rotation Mode for Back Page */
+    .page-inverted-180 {
+      transform: rotate(180deg) !important;
     }
 
     @media print {
@@ -1083,28 +1418,34 @@
         position: absolute;
         left: 0;
         top: 0;
-        width: 100%;
+        width: 210mm !important;
         background: transparent !important;
         padding: 0 !important;
         display: block !important;
+        overflow: visible !important;
       }
-      .print-action-bar {
+      .print-control-panel, .a4-page-badge {
         display: none !important;
       }
       .a4-sheets-wrapper {
-        gap: 0;
-        margin: 0;
+        gap: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
       }
       .a4-paper-sheet {
         box-shadow: none !important;
-        margin: 0;
+        margin: 0 !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        max-width: 210mm !important;
+        max-height: 297mm !important;
         page-break-after: always;
         break-after: page;
-        width: 210mm;
-        height: 297mm;
-        padding: 16mm 10mm;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
+      }
+      .a4-paper-sheet.hide-in-print {
+        display: none !important;
       }
       @page {
         size: A4 portrait;
@@ -1130,9 +1471,13 @@
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
         Back to Website
       </a>
-      <button class="btn btn-print" onclick="openPrintModal()">
+      <button class="btn btn-print" onclick="openEpsonL3251MasterMode()" style="background: linear-gradient(135deg, #0052FF 0%, #0284C7 100%); box-shadow: 0 4px 15px rgba(0, 82, 255, 0.4);" title="One-Click Automatic Configuration for Epson EcoTank L3251 Manual Duplex">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect width="12" height="8" x="6" y="14"></rect></svg>
+        🖨️ Epson L3251 Master Mode
+      </button>
+      <button class="btn btn-secondary" onclick="openPrintModal()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect width="12" height="8" x="6" y="14"></rect></svg>
-        Print A4 Sheet (Duplex)
+        Print Studio
       </button>
     </div>
   </header>
@@ -1286,10 +1631,18 @@
           
           <div class="tune-slider-group">
             <div class="tune-slider-header">
-              <span>Back Logo Size</span>
+              <span>Back Logo Height (↕)</span>
               <span class="tune-slider-val" id="val-back-logo-size">46px</span>
             </div>
-            <input type="range" id="slider-back-logo-size" class="range-input" min="20" max="90" value="46" oninput="applyAdjustments()">
+            <input type="range" id="slider-back-logo-size" class="range-input" min="15" max="100" value="46" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Back Logo Max Width (↔)</span>
+              <span class="tune-slider-val" id="val-back-logo-w">340px</span>
+            </div>
+            <input type="range" id="slider-back-logo-w" class="range-input" min="60" max="440" value="340" oninput="applyAdjustments()">
           </div>
 
           <div class="tune-slider-group">
@@ -1415,10 +1768,18 @@
 
           <div class="tune-slider-group">
             <div class="tune-slider-header">
-              <span>Front Logo Size</span>
+              <span>Front Logo Height (↕)</span>
               <span class="tune-slider-val" id="val-front-logo-size">24px</span>
             </div>
-            <input type="range" id="slider-front-logo-size" class="range-input" min="16" max="50" value="24" oninput="applyAdjustments()">
+            <input type="range" id="slider-front-logo-size" class="range-input" min="14" max="60" value="24" oninput="applyAdjustments()">
+          </div>
+
+          <div class="tune-slider-group">
+            <div class="tune-slider-header">
+              <span>Front Logo Max Width (↔)</span>
+              <span class="tune-slider-val" id="val-front-logo-w">220px</span>
+            </div>
+            <input type="range" id="slider-front-logo-w" class="range-input" min="40" max="320" value="220" oninput="applyAdjustments()">
           </div>
 
           <div class="tune-slider-group">
@@ -1747,35 +2108,211 @@
   <!-- A4 PRINT & DUPLEX MODAL -->
   <div id="print-sheet-modal" class="print-overlay">
     
-    <div class="print-action-bar">
-      <div style="display:flex; align-items:center; gap:12px;">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0052FF" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect width="12" height="8" x="6" y="14"></rect></svg>
-        <div>
-          <h3 style="font-size:1rem; font-weight:800; color:#fff;">A4 Duplex Ready Print Engine</h3>
-          <p style="font-size:0.75rem; color:#94A3B8;">8 exact standard cards (88.9mm × 50.8mm) per page with crop cutting guides</p>
+    <div class="print-control-panel">
+      
+      <!-- Top Action Bar Header -->
+      <div class="print-bar-header" style="border-bottom:1px solid rgba(56,189,248,0.25); padding-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:42px; height:42px; background:rgba(0,82,255,0.15); border:1.5px solid #38BDF8; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect width="12" height="8" x="6" y="14"></rect></svg>
+          </div>
+          <div>
+            <h3 style="font-size:1.1rem; font-weight:800; color:#fff; display:flex; align-items:center; gap:8px;">
+              Epson L3251 Print Engine
+              <span class="epson-badge">Dedicated Mode</span>
+            </h3>
+            <p style="font-size:0.75rem; color:#94A3B8;">Auto-Configured for Epson EcoTank L3251 • Standard 3.5" × 2.0" Business Cards</p>
+          </div>
+        </div>
+
+        <!-- 2 Primary Action Buttons -->
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <button class="btn btn-secondary" onclick="closePrintModal()" style="padding:8px 14px; font-size:0.82rem;">✕ Close</button>
+          
+          <button class="btn btn-print" onclick="quickPrintPage(1)" style="padding:9px 18px; font-size:0.86rem; background:#0284C7; border:none; box-shadow:0 4px 14px rgba(2,132,199,0.4);" title="Step 1: Put blank A4 sheet in top tray and print fronts">
+            📄 1. Print Fronts (P1)
+          </button>
+
+          <button class="btn btn-print" onclick="quickPrintPage(2)" style="padding:9px 18px; font-size:0.86rem; background:#D97706; border:none; box-shadow:0 4px 14px rgba(217,119,6,0.4);" title="Step 2: Reload paper top-to-bottom and print backs">
+            📄 2. Print Backs (P2)
+          </button>
         </div>
       </div>
 
-      <div style="display:flex; align-items:center; gap:10px;">
-        <button class="btn btn-secondary" onclick="closePrintModal()">Close</button>
-        <button class="btn btn-print" onclick="window.print()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect width="12" height="8" x="6" y="14"></rect></svg>
-          Print Now (Ctrl + P)
-        </button>
+      <!-- Simple Epson Alignment & Paper Reload Mode Bar -->
+      <div style="background:#0B1019; border:1px solid rgba(56, 189, 248, 0.25); border-radius:10px; padding:10px 14px; display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+          <!-- Paper Reload Flip Mode Selector -->
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <span style="font-weight:800; color:#38BDF8; font-size:0.78rem;">🔄 Back Side Orientation:</span>
+            <button id="btn-flip-normal" type="button" class="btn btn-secondary active" onclick="setFlipMode('normal')" style="padding:6px 14px; font-size:0.78rem; font-weight:800; background:#0284C7; color:#FFF; border-color:#38BDF8;" title="Seedha Print (Normal 0° - Left to Right Book Flip)">
+              📖 Seedha / Upright (Normal 0°)
+            </button>
+            <button id="btn-flip-inverted" type="button" class="btn btn-secondary" onclick="setFlipMode('inverted')" style="padding:6px 14px; font-size:0.78rem; font-weight:700;" title="Ulta Print (180° Inverted - Top to Bottom Flip)">
+              🔄 Ulta / Inverted (180° Flip)
+            </button>
+          </div>
+
+          <!-- X-Ray Superimpose Preview Toggle -->
+          <div>
+            <button id="btn-xray-toggle" class="btn btn-secondary" onclick="toggleXrayView()" style="padding:5px 12px; font-size:0.75rem; color:#38BDF8; border-color:#38BDF8;">
+              🔍 X-Ray Superimpose View
+            </button>
+          </div>
+        </div>
+
+        <!-- Left / Right & Up / Down Fine Offset Tuning for Epson L3251 -->
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; border-top:1px solid rgba(148,163,184,0.15); padding-top:8px;">
+          <!-- X Axis -->
+          <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+            <span style="font-weight:700; color:#94A3B8; font-size:0.74rem;">↔️ Left/Right (X):</span>
+            <span id="val-print-calib-x" style="font-family:var(--font-mono); font-size:0.74rem; font-weight:800; color:#38BDF8; background:#1E293B; padding:2px 6px; border-radius:4px;">0.0 mm</span>
+            <button type="button" class="btn btn-secondary" onclick="nudgeCalib('x', -1.0)" style="padding:2px 7px; font-size:0.68rem;">◀ -1mm</button>
+            <button type="button" class="btn btn-secondary" onclick="nudgeCalib('x', 1.0)" style="padding:2px 7px; font-size:0.68rem;">+1mm ▶</button>
+          </div>
+
+          <!-- Y Axis -->
+          <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+            <span style="font-weight:700; color:#94A3B8; font-size:0.74rem;">↕️ Up/Down (Y):</span>
+            <span id="val-print-calib-y" style="font-family:var(--font-mono); font-size:0.74rem; font-weight:800; color:#F59E0B; background:#1E293B; padding:2px 6px; border-radius:4px;">0.0 mm</span>
+            <button type="button" class="btn btn-secondary" onclick="nudgeCalib('y', -1.0)" style="padding:2px 7px; font-size:0.68rem;">▲ -1mm</button>
+            <button type="button" class="btn btn-secondary" onclick="nudgeCalib('y', 1.0)" style="padding:2px 7px; font-size:0.68rem;">+1mm ▼</button>
+          </div>
+
+          <!-- Reset -->
+          <div>
+            <button type="button" class="btn btn-secondary" onclick="resetPrintCalibration()" style="padding:3px 10px; font-size:0.7rem; color:#10B981; font-weight:700;">🎯 Reset Center (0, 0)</button>
+          </div>
+        </div>
       </div>
+
+      <!-- Epson L3251 Step-by-Step Illustrated Reload Guide -->
+      <div class="epson-guide-banner">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <div style="font-weight:800; color:#38BDF8; font-size:0.82rem; display:flex; align-items:center; gap:8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect width="12" height="8" x="6" y="14"></rect></svg>
+            <span>🧭 Epson L3251 Two-Pass Paper Flip & Reload Instructions (Manual Duplex Guide)</span>
+          </div>
+          <span class="epson-badge">Top-Rear Feeder Guide</span>
+        </div>
+
+        <div class="epson-steps-grid">
+          <!-- Step 1 -->
+          <div class="epson-step-card">
+            <div class="epson-step-num">
+              <span>Step 1 • Print Fronts (P1)</span>
+            </div>
+            <div class="epson-step-desc">
+              Place blank A4 sheet in Epson top-rear tray. Click <b>📄 Print Fronts (P1)</b>. The page exits into the front tray with card fronts printed facing UP.
+            </div>
+            <div class="epson-step-diagram">
+              <span>Top Tray ➔ [Blank A4] ➔ Prints Fronts (P1)</span>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="epson-step-card">
+            <div class="epson-step-num" style="color:#F59E0B;">
+              <span>Step 2 • The Paper Flip (Turn Over)</span>
+            </div>
+            <div class="epson-step-desc">
+              Pick up printed sheet from front tray. <b>Turn it over top-to-bottom</b> (so the blank back is now facing UP / towards you). <b>Keep the top edge at the top!</b>
+            </div>
+            <div class="epson-step-diagram" style="color:#FCD34D;">
+              <span>🔄 Turn Over: Top-to-Bottom (Blank Side UP)</span>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="epson-step-card">
+            <div class="epson-step-num" style="color:#10B981;">
+              <span>Step 3 • Reload & Print Backs (P2)</span>
+            </div>
+            <div class="epson-step-desc">
+              Slide that top edge straight back into the top feeder. Click <b>📄 Print Backs (P2)</b>. Both sides will print right-side up, with exact cut alignment!
+            </div>
+            <div class="epson-step-diagram" style="color:#34D399;">
+              <span>Top Tray ➔ [Blank Side Faces You] ➔ Print Backs (P2)</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#0F172A; border:1px solid #334155; padding:8px 12px; border-radius:8px; font-size:0.68rem; color:#94A3B8; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <div>
+            <b style="color:#E2E8F0;">⚙️ Browser Print Dialog:</b> 
+            Scale: <b style="color:#38BDF8;">100% (Default)</b> • Margins: <b style="color:#38BDF8;">None / Minimum</b> • Background Graphics: <b style="color:#10B981;">ON</b>
+          </div>
+          <div style="color:#CBD5E1;">
+            💡 <i>Hold printed page up to a window/light to check alignment of outer ⊕ crosshairs!</i>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <!-- A4 Paper Output -->
+    <!-- A4 Paper Sheets Output (Exact 210mm x 297mm) -->
     <div class="a4-sheets-wrapper">
       
-      <!-- PAGE 1: 8 FRONTS -->
-      <div class="a4-paper-sheet" id="print-page-1">
-        <div class="a4-cards-grid" id="grid-fronts-target"></div>
+      <!-- PAGE 1: FRONTS -->
+      <div class="a4-paper-sheet" id="print-sheet-page-1">
+        <div class="a4-page-badge">PAGE 1: FRONTS</div>
+        
+        <div class="a4-feed-arrow-banner">
+          <span>⬆ 1. FEED THIS TOP EDGE FIRST INTO PRINTER TOP TRAY ⬆</span>
+        </div>
+        
+        <!-- Registration Crosshairs (⊕) on all 4 Page Edges -->
+        <div class="reg-mark reg-mark-top">
+          <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="10" fill="none"/><line x1="20" y1="2" x2="20" y2="38"/><line x1="2" y1="20" x2="38" y2="20"/></svg>
+        </div>
+        <div class="reg-mark reg-mark-bottom">
+          <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="10" fill="none"/><line x1="20" y1="2" x2="20" y2="38"/><line x1="2" y1="20" x2="38" y2="20"/></svg>
+        </div>
+        <div class="reg-mark reg-mark-left">
+          <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="10" fill="none"/><line x1="20" y1="2" x2="20" y2="38"/><line x1="2" y1="20" x2="38" y2="20"/></svg>
+        </div>
+        <div class="reg-mark reg-mark-right">
+          <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="10" fill="none"/><line x1="20" y1="2" x2="20" y2="38"/><line x1="2" y1="20" x2="38" y2="20"/></svg>
+        </div>
+
+        <div class="a4-grid-container" id="grid-container-front">
+          <div class="a4-cards-grid" id="grid-fronts-target"></div>
+        </div>
+
+        <div class="a4-feed-footer-banner">
+          <span>• OMMNOMI A4 DUPLEX PRINT ENGINE • EPSON L3251 PASS 1 •</span>
+        </div>
       </div>
 
-      <!-- PAGE 2: 8 BACKS (HORIZONTALLY MIRRORED FOR DUPLEX ALIGNMENT) -->
-      <div class="a4-paper-sheet" id="print-page-2">
-        <div class="a4-cards-grid" id="grid-backs-target"></div>
+      <!-- PAGE 2: BACKS (WITH SUB-MILLIMETER NUDGE & 180° FLIP CAPABILITY) -->
+      <div class="a4-paper-sheet" id="print-sheet-page-2">
+        <div class="a4-page-badge">PAGE 2: BACKS</div>
+        
+        <div class="a4-feed-arrow-banner">
+          <span>⬆ 2. RELOAD THIS TOP EDGE INTO TOP TRAY (BLANK SIDE FACING YOU) ⬆</span>
+        </div>
+        
+        <!-- Registration Crosshairs (⊕) on all 4 Page Edges -->
+        <div class="reg-mark reg-mark-top">
+          <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="10" fill="none"/><line x1="20" y1="2" x2="20" y2="38"/><line x1="2" y1="20" x2="38" y2="20"/></svg>
+        </div>
+        <div class="reg-mark reg-mark-bottom">
+          <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="10" fill="none"/><line x1="20" y1="2" x2="20" y2="38"/><line x1="2" y1="20" x2="38" y2="20"/></svg>
+        </div>
+        <div class="reg-mark reg-mark-left">
+          <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="10" fill="none"/><line x1="20" y1="2" x2="20" y2="38"/><line x1="2" y1="20" x2="38" y2="20"/></svg>
+        </div>
+        <div class="reg-mark reg-mark-right">
+          <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="10" fill="none"/><line x1="20" y1="2" x2="20" y2="38"/><line x1="2" y1="20" x2="38" y2="20"/></svg>
+        </div>
+
+        <div class="a4-grid-container" id="grid-container-back">
+          <div class="a4-cards-grid" id="grid-backs-target"></div>
+        </div>
+
+        <div class="a4-feed-footer-banner">
+          <span>• OMMNOMI A4 DUPLEX PRINT ENGINE • EPSON L3251 PASS 2 •</span>
+        </div>
       </div>
 
     </div>
@@ -1806,9 +2343,24 @@
       currentTheme: "style-tpl-1"
     };
 
+    // Print & Calibration State
+    const printState = {
+      activeVersion: "v1",
+      flipMode: "inverted", // "normal" | "inverted" (Inverted default for Epson L3251 top-feeder)
+      pageMode: "both",     // "both" | "front" | "back"
+      gridMode: "zero-gap", // "zero-gap" | "spaced" | "10cards"
+      cutLineMode: "hairline", // "hairline" | "dashed" | "none"
+      cardStandard: "standard",
+      bgGraphMode: "clean",
+      regMarksMode: "show",
+      calibX: 0.0, // mm
+      calibY: 0.0  // mm
+    };
+
     let qrcodeObj = null;
 
     window.addEventListener('DOMContentLoaded', () => {
+      loadSavedPrintCalibration();
       renderCard();
       applyAdjustments();
     });
@@ -1882,33 +2434,43 @@
       }
     }
 
-    // Automatic transparent background generator for exact logo
+    // Automatic transparent background generator for exact logo (Preserves 100% true aspect ratio)
     function removeBgFromImage(imgElement, callback) {
+      const naturalW = imgElement.naturalWidth || imgElement.width || 400;
+      const naturalH = imgElement.naturalHeight || imgElement.height || 100;
+
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
-      canvas.width = Math.max(imgElement.naturalWidth || 0, 700);
-      canvas.height = Math.max(imgElement.naturalHeight || 0, 90);
+      canvas.width = naturalW;
+      canvas.height = naturalH;
 
-      ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
-      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const d = imgData.data;
+      // Draw exactly 1:1 without ANY non-uniform scaling or stretching
+      ctx.drawImage(imgElement, 0, 0, naturalW, naturalH);
+      
+      try {
+        const imgData = ctx.getImageData(0, 0, naturalW, naturalH);
+        const d = imgData.data;
 
-      for (let i = 0; i < d.length; i += 4) {
-        const r = d[i];
-        const g = d[i + 1];
-        const b = d[i + 2];
-        if (r > 235 && g > 235 && b > 235) {
-          const brightness = (r + g + b) / 3;
-          if (brightness > 248) {
-            d[i + 3] = 0;
-          } else {
-            d[i + 3] = Math.round((255 - brightness) * (255 / 20));
+        for (let i = 0; i < d.length; i += 4) {
+          const r = d[i];
+          const g = d[i + 1];
+          const b = d[i + 2];
+          const a = d[i + 3];
+          if (a > 0 && r > 238 && g > 238 && b > 238) {
+            const brightness = (r + g + b) / 3;
+            if (brightness > 250) {
+              d[i + 3] = 0;
+            } else {
+              d[i + 3] = Math.round((255 - brightness) * (255 / 17));
+            }
           }
         }
-      }
 
-      ctx.putImageData(imgData, 0, 0);
-      callback(canvas.toDataURL('image/png'));
+        ctx.putImageData(imgData, 0, 0);
+        callback(canvas.toDataURL('image/png'));
+      } catch (e) {
+        callback(imgElement.src);
+      }
     }
 
     function updateFrontLogoDisplay() {
@@ -1916,29 +2478,38 @@
       const headerLogo = document.querySelector('.brand-logo-img');
       const logoSrc = state.frontLogoUrl || "assets/ommnomi-logo.svg";
 
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-      img.onload = () => {
-        removeBgFromImage(img, (transparentDataUrl) => {
-          if (frontTarget) frontTarget.innerHTML = `<img src="${transparentDataUrl}" class="card-brand-logo" alt="Front Logo">`;
-          if (headerLogo) headerLogo.src = transparentDataUrl;
-        });
-      };
-      img.src = logoSrc;
+      if (typeof logoSrc === 'string' && (logoSrc.endsWith('.svg') || logoSrc.startsWith('data:image/svg'))) {
+        if (frontTarget) frontTarget.innerHTML = `<img src="${logoSrc}" class="card-brand-logo" alt="Front Logo">`;
+        if (headerLogo) headerLogo.src = logoSrc;
+      } else {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => {
+          removeBgFromImage(img, (transparentDataUrl) => {
+            if (frontTarget) frontTarget.innerHTML = `<img src="${transparentDataUrl}" class="card-brand-logo" alt="Front Logo">`;
+            if (headerLogo) headerLogo.src = transparentDataUrl;
+          });
+        };
+        img.src = logoSrc;
+      }
     }
 
     function updateBackLogoDisplay() {
       const backTarget = document.getElementById('back-logo-render-target');
       const logoSrc = state.backLogoUrl || "assets/ommnomi-logo.svg";
 
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-      img.onload = () => {
-        removeBgFromImage(img, (transparentDataUrl) => {
-          if (backTarget) backTarget.innerHTML = `<img src="${transparentDataUrl}" class="card-brand-logo-back" alt="Back Logo">`;
-        });
-      };
-      img.src = logoSrc;
+      if (typeof logoSrc === 'string' && (logoSrc.endsWith('.svg') || logoSrc.startsWith('data:image/svg'))) {
+        if (backTarget) backTarget.innerHTML = `<img src="${logoSrc}" class="card-brand-logo-back" alt="Back Logo">`;
+      } else {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => {
+          removeBgFromImage(img, (transparentDataUrl) => {
+            if (backTarget) backTarget.innerHTML = `<img src="${transparentDataUrl}" class="card-brand-logo-back" alt="Back Logo">`;
+          });
+        };
+        img.src = logoSrc;
+      }
     }
 
     function updateLogoDisplay() {
@@ -1950,6 +2521,7 @@
     function applyAdjustments() {
       // Back side sliders
       const backLogoSize = document.getElementById('slider-back-logo-size').value;
+      const backLogoW = (document.getElementById('slider-back-logo-w') ? document.getElementById('slider-back-logo-w').value : 340);
       const backLogoY = document.getElementById('slider-back-logo-y').value;
       const backLogoX = document.getElementById('slider-back-logo-x').value;
       const backGap = document.getElementById('slider-back-gap').value;
@@ -1967,6 +2539,7 @@
       const photoX = document.getElementById('slider-photo-x').value;
       const photoY = document.getElementById('slider-photo-y').value;
       const frontLogoSize = document.getElementById('slider-front-logo-size').value;
+      const frontLogoW = (document.getElementById('slider-front-logo-w') ? document.getElementById('slider-front-logo-w').value : 220);
       const frontLogoY = document.getElementById('slider-front-logo-y').value;
       const frontTopLineY = document.getElementById('slider-front-top-line-y').value;
       const frontTextY = document.getElementById('slider-front-text-y').value;
@@ -1980,6 +2553,7 @@
 
       // Update Labels
       document.getElementById('val-back-logo-size').textContent = backLogoSize + 'px';
+      if (document.getElementById('val-back-logo-w')) document.getElementById('val-back-logo-w').textContent = backLogoW + 'px';
       document.getElementById('val-back-logo-y').textContent = (backLogoY > 0 ? '+' : '') + backLogoY + 'px';
       document.getElementById('val-back-logo-x').textContent = (backLogoX > 0 ? '+' : '') + backLogoX + 'px';
       document.getElementById('val-back-gap').textContent = backGap + 'px';
@@ -1996,6 +2570,7 @@
       document.getElementById('val-photo-x').textContent = (photoX > 0 ? '+' : '') + photoX + 'px';
       document.getElementById('val-photo-y').textContent = (photoY > 0 ? '+' : '') + photoY + 'px';
       document.getElementById('val-front-logo-size').textContent = frontLogoSize + 'px';
+      if (document.getElementById('val-front-logo-w')) document.getElementById('val-front-logo-w').textContent = frontLogoW + 'px';
       document.getElementById('val-front-logo-y').textContent = (frontLogoY > 0 ? '+' : '') + frontLogoY + 'px';
       document.getElementById('val-front-top-line-y').textContent = (frontTopLineY > 0 ? '+' : '') + frontTopLineY + 'px';
       document.getElementById('val-front-text-y').textContent = (frontTextY > 0 ? '+' : '') + frontTextY + 'px';
@@ -2010,6 +2585,7 @@
       // Set CSS Variables on document root
       const root = document.documentElement;
       root.style.setProperty('--back-logo-h', backLogoSize + 'px');
+      root.style.setProperty('--back-logo-w', backLogoW + 'px');
       root.style.setProperty('--back-logo-y', backLogoY + 'px');
       root.style.setProperty('--back-logo-x', backLogoX + 'px');
       root.style.setProperty('--back-gap', backGap + 'px');
@@ -2026,6 +2602,7 @@
       root.style.setProperty('--front-photo-x', photoX + 'px');
       root.style.setProperty('--front-photo-y', photoY + 'px');
       root.style.setProperty('--front-logo-h', frontLogoSize + 'px');
+      root.style.setProperty('--front-logo-w', frontLogoW + 'px');
       root.style.setProperty('--front-logo-y', frontLogoY + 'px');
       root.style.setProperty('--front-top-line-y', frontTopLineY + 'px');
       root.style.setProperty('--front-top-line-opacity', (frontLinesOpacity / 100).toString());
@@ -2041,6 +2618,7 @@
 
     function resetAdjustments() {
       document.getElementById('slider-back-logo-size').value = 46;
+      if (document.getElementById('slider-back-logo-w')) document.getElementById('slider-back-logo-w').value = 340;
       document.getElementById('slider-back-logo-y').value = 0;
       document.getElementById('slider-back-logo-x').value = 0;
       document.getElementById('slider-back-gap').value = 8;
@@ -2057,6 +2635,7 @@
       document.getElementById('slider-photo-x').value = 0;
       document.getElementById('slider-photo-y').value = 0;
       document.getElementById('slider-front-logo-size').value = 24;
+      if (document.getElementById('slider-front-logo-w')) document.getElementById('slider-front-logo-w').value = 220;
       document.getElementById('slider-front-logo-y').value = 0;
       document.getElementById('slider-front-top-line-y').value = 0;
       document.getElementById('slider-front-text-y').value = 0;
@@ -2146,30 +2725,258 @@
       qrEl.appendChild(qrImg);
     }
 
-    // ================= A4 PRINT MODAL & GRID BUILDER =================
+    // ================= EPSON L3251 DEDICATED PRINT ENGINE =================
+    const printState = {
+      cardStandard: 'standard',
+      bgGraphMode: 'clean',
+      regMarksMode: 'show',
+      flipMode: 'normal', // Default: 100% Seedha / Upright (0°)
+      gridMode: 'zero-gap',
+      cutLineMode: 'hairline',
+      pageMode: 'both',
+      calibX: 0.0,
+      calibY: 0.0
+    };
+
+    function openEpsonL3251MasterMode() {
+      openPrintModal();
+    }
+
+    function setFlipMode(mode) {
+      printState.flipMode = mode;
+      const bInv = document.getElementById('btn-flip-inverted');
+      const bNorm = document.getElementById('btn-flip-normal');
+      if (bInv) {
+        bInv.classList.toggle('active', mode === 'inverted');
+        bInv.style.background = (mode === 'inverted') ? '#0284C7' : '';
+        bInv.style.borderColor = (mode === 'inverted') ? '#38BDF8' : '';
+        bInv.style.color = (mode === 'inverted') ? '#FFF' : '';
+      }
+      if (bNorm) {
+        bNorm.classList.toggle('active', mode === 'normal');
+        bNorm.style.background = (mode === 'normal') ? '#0284C7' : '';
+        bNorm.style.borderColor = (mode === 'normal') ? '#38BDF8' : '';
+        bNorm.style.color = (mode === 'normal') ? '#FFF' : '';
+      }
+      updateBackPageTransform();
+    }
+
     function openPrintModal() {
+      printState.cardStandard = 'standard';
+      printState.bgGraphMode = 'clean';
+      printState.regMarksMode = 'show';
+      printState.gridMode = 'zero-gap';
+      printState.cutLineMode = 'hairline';
+      printState.pageMode = 'both';
+
+      const root = document.documentElement;
+      root.style.setProperty('--card-print-w', '88.9mm');
+      root.style.setProperty('--card-print-h', '50.8mm');
+      root.style.setProperty('--card-scale-x', '0.622222');
+      root.style.setProperty('--card-scale-y', '0.623377');
+
+      const valX = document.getElementById('val-print-calib-x');
+      const valY = document.getElementById('val-print-calib-y');
+      if (valX) valX.textContent = (printState.calibX > 0 ? '+' : '') + printState.calibX.toFixed(1) + ' mm';
+      if (valY) valY.textContent = (printState.calibY > 0 ? '+' : '') + printState.calibY.toFixed(1) + ' mm';
+
+      const modal = document.getElementById('print-sheet-modal');
+      if (modal) {
+        modal.classList.add('hide-bg-graph');
+        modal.classList.remove('hide-reg-marks', 'xray-mode');
+        modal.classList.add('is-visible');
+      }
+
+      setFlipMode(printState.flipMode || 'normal');
+      setPageMode('both');
       populateA4Grids();
-      document.getElementById('print-sheet-modal').classList.add('is-visible');
     }
 
     function closePrintModal() {
-      document.getElementById('print-sheet-modal').classList.remove('is-visible');
+      const modal = document.getElementById('print-sheet-modal');
+      if (modal) modal.classList.remove('is-visible', 'xray-mode');
     }
 
+    function setPageMode(mode) {
+      printState.pageMode = mode;
+      const p1 = document.getElementById('print-sheet-page-1');
+      const p2 = document.getElementById('print-sheet-page-2');
+
+      if (p1 && p2) {
+        if (mode === 'both') {
+          p1.classList.remove('hide-in-preview', 'hide-in-print');
+          p2.classList.remove('hide-in-preview', 'hide-in-print');
+        } else if (mode === 'front') {
+          p1.classList.remove('hide-in-preview', 'hide-in-print');
+          p2.classList.add('hide-in-preview', 'hide-in-print');
+        } else if (mode === 'back') {
+          p1.classList.add('hide-in-preview', 'hide-in-print');
+          p2.classList.remove('hide-in-preview', 'hide-in-print');
+        }
+      }
+    }
+
+    function quickPrintPage(pageNum) {
+      setPageMode(pageNum === 1 ? 'front' : 'back');
+      setTimeout(() => {
+        window.print();
+      }, 120);
+    }
+
+    function nudgeCalib(axis, delta) {
+      if (axis === 'x') {
+        printState.calibX = Math.round((printState.calibX + delta) * 10) / 10;
+        const valX = document.getElementById('val-print-calib-x');
+        if (valX) valX.textContent = (printState.calibX > 0 ? '+' : '') + printState.calibX.toFixed(1) + ' mm';
+      } else {
+        printState.calibY = Math.round((printState.calibY + delta) * 10) / 10;
+        const valY = document.getElementById('val-print-calib-y');
+        if (valY) valY.textContent = (printState.calibY > 0 ? '+' : '') + printState.calibY.toFixed(1) + ' mm';
+      }
+      updateBackPageTransform();
+      savePrintCalibration();
+    }
+
+    function resetPrintCalibration() {
+      printState.calibX = 0.0;
+      printState.calibY = 0.0;
+      const valX = document.getElementById('val-print-calib-x');
+      const valY = document.getElementById('val-print-calib-y');
+      if (valX) valX.textContent = '0.0 mm';
+      if (valY) valY.textContent = '0.0 mm';
+      updateBackPageTransform();
+      savePrintCalibration();
+    }
+
+    function savePrintCalibration() {
+      try {
+        localStorage.setItem('ommnomi_epson_calib', JSON.stringify({
+          x: printState.calibX,
+          y: printState.calibY
+        }));
+      } catch (e) {
+        console.warn("Storage error:", e);
+      }
+    }
+
+    function toggleXrayView() {
+      const modal = document.getElementById('print-sheet-modal');
+      const btn = document.getElementById('btn-xray-toggle');
+      if (!modal) return;
+      const isXray = modal.classList.toggle('xray-mode');
+      if (btn) {
+        btn.classList.toggle('active', isXray);
+        btn.innerHTML = isXray ? '🔍 Exit X-Ray' : '🔍 X-Ray Superimpose View';
+        btn.style.background = isXray ? '#0284C7' : '';
+        btn.style.color = isXray ? '#FFFFFF' : '#38BDF8';
+      }
+    }
+
+    // Sub-Millimeter Printer Calibration Handlers
+    function nudgeCalib(axis, delta) {
+      if (axis === 'x') {
+        printState.calibX = Math.round((printState.calibX + delta) * 10) / 10;
+        const valX = document.getElementById('val-print-calib-x');
+        if (valX) valX.textContent = (printState.calibX > 0 ? '+' : '') + printState.calibX.toFixed(1) + ' mm';
+      } else {
+        printState.calibY = Math.round((printState.calibY + delta) * 10) / 10;
+      }
+      updateBackPageTransform();
+      savePrintCalibration();
+    }
+
+    function resetPrintCalibration() {
+      printState.calibX = 0.0;
+      printState.calibY = 0.0;
+      const valX = document.getElementById('val-print-calib-x');
+      if (valX) valX.textContent = '0.0 mm';
+      updateBackPageTransform();
+      savePrintCalibration();
+    }
+
+    function savePrintCalibration() {
+      try {
+        localStorage.setItem('ommnomi_epson_calib', JSON.stringify({
+          x: printState.calibX,
+          y: printState.calibY
+        }));
+      } catch (e) {
+        console.warn("Storage not available:", e);
+      }
+    }
+
+    function loadSavedPrintCalibration() {
+      try {
+        const saved = localStorage.getItem('ommnomi_epson_calib');
+        if (saved) {
+          const cfg = JSON.parse(saved);
+          if (cfg.x !== undefined) {
+            printState.calibX = cfg.x;
+            const valX = document.getElementById('val-print-calib-x');
+            if (valX) valX.textContent = (cfg.x > 0 ? '+' : '') + cfg.x.toFixed(1) + ' mm';
+          }
+          if (cfg.y !== undefined) {
+            printState.calibY = cfg.y;
+            const valY = document.getElementById('val-print-calib-y');
+            if (valY) valY.textContent = (cfg.y > 0 ? '+' : '') + cfg.y.toFixed(1) + ' mm';
+          }
+        }
+      } catch (e) {
+        console.warn("Error loading calibration:", e);
+      }
+    }
+
+    function updateBackPageTransform() {
+      const backContainer = document.getElementById('grid-container-back');
+      if (!backContainer) return;
+
+      const rot = (printState.flipMode === 'inverted') ? 'rotate(180deg)' : '';
+      const trans = `translate(${printState.calibX}mm, ${printState.calibY}mm)`;
+      backContainer.style.transform = `${trans} ${rot}`.trim();
+    }
+
+    // Grid Builder
     function populateA4Grids() {
       const frontTarget = document.getElementById('grid-fronts-target');
       const backTarget = document.getElementById('grid-backs-target');
 
+      if (!frontTarget || !backTarget) return;
+
       frontTarget.innerHTML = "";
       backTarget.innerHTML = "";
 
-      const frontHTML = document.querySelector('.side-front').innerHTML;
-      const backHTML = document.querySelector('.side-back').innerHTML;
+      const frontGridClass = `a4-cards-grid ${printState.gridMode === 'spaced' ? 'mode-spaced' : (printState.gridMode === '10cards' ? 'mode-10cards' : '')}`;
+      frontTarget.className = frontGridClass;
+      backTarget.className = frontGridClass;
 
-      // 8 Cards Per Page (2 Columns x 4 Rows)
-      for (let i = 0; i < 8; i++) {
+      let frontHTML = document.querySelector('.side-front').innerHTML;
+      let backHTML = document.querySelector('.side-back').innerHTML;
+
+      // If clean background mode is selected, remove the background graph circle & grid SVG from cards
+      if (printState.bgGraphMode === 'clean') {
+        const tempDivFront = document.createElement('div');
+        tempDivFront.innerHTML = frontHTML;
+        const bgFront = tempDivFront.querySelector('.card-bg-overlay');
+        if (bgFront) bgFront.remove();
+        frontHTML = tempDivFront.innerHTML;
+
+        const tempDivBack = document.createElement('div');
+        tempDivBack.innerHTML = backHTML;
+        const bgBack = tempDivBack.querySelector('.card-bg-overlay');
+        if (bgBack) bgBack.remove();
+        backHTML = tempDivBack.innerHTML;
+      }
+
+      const cardCount = (printState.gridMode === '10cards') ? 10 : 8;
+
+      let cutBorderClass = "";
+      if (printState.cutLineMode === 'dashed') cutBorderClass = "dashed-cut";
+      else if (printState.cutLineMode === 'none') cutBorderClass = "no-cut-lines";
+
+      // PAGE 1: Front Cards (Clean bounding box without corner ticks)
+      for (let i = 0; i < cardCount; i++) {
         const cardFront = document.createElement('div');
-        cardFront.className = `print-card-box ${state.currentTheme}`;
+        cardFront.className = `print-card-box ${state.currentTheme} ${cutBorderClass}`;
         cardFront.innerHTML = `
           <div class="print-card-scaler ${state.currentTheme}">
             ${frontHTML}
@@ -2178,10 +2985,10 @@
         frontTarget.appendChild(cardFront);
       }
 
-      // Page 2 Mirrored Backs for duplex matching
-      for (let i = 0; i < 8; i++) {
+      // PAGE 2: Back Cards
+      for (let i = 0; i < cardCount; i++) {
         const cardBack = document.createElement('div');
-        cardBack.className = `print-card-box ${state.currentTheme}`;
+        cardBack.className = `print-card-box ${state.currentTheme} ${cutBorderClass}`;
         cardBack.innerHTML = `
           <div class="print-card-scaler ${state.currentTheme}">
             ${backHTML}
@@ -2189,6 +2996,9 @@
         `;
         backTarget.appendChild(cardBack);
       }
+
+      updateBackPageTransform();
+      setPageMode(printState.pageMode);
     }
   </script>
 
