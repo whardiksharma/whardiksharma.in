@@ -2722,17 +2722,6 @@
     }
 
     // ================= EPSON L3251 DEDICATED PRINT ENGINE =================
-    const printState = {
-      cardStandard: 'standard',
-      bgGraphMode: 'clean',
-      regMarksMode: 'show',
-      flipMode: 'normal', // Default: 100% Seedha / Upright (0°)
-      gridMode: 'zero-gap',
-      cutLineMode: 'hairline',
-      pageMode: 'both',
-      calibX: 0.0,
-      calibY: 0.0
-    };
 
     function openEpsonL3251MasterMode() {
       openPrintModal();
@@ -2872,38 +2861,7 @@
       }
     }
 
-    // Sub-Millimeter Printer Calibration Handlers
-    function nudgeCalib(axis, delta) {
-      if (axis === 'x') {
-        printState.calibX = Math.round((printState.calibX + delta) * 10) / 10;
-        const valX = document.getElementById('val-print-calib-x');
-        if (valX) valX.textContent = (printState.calibX > 0 ? '+' : '') + printState.calibX.toFixed(1) + ' mm';
-      } else {
-        printState.calibY = Math.round((printState.calibY + delta) * 10) / 10;
-      }
-      updateBackPageTransform();
-      savePrintCalibration();
-    }
 
-    function resetPrintCalibration() {
-      printState.calibX = 0.0;
-      printState.calibY = 0.0;
-      const valX = document.getElementById('val-print-calib-x');
-      if (valX) valX.textContent = '0.0 mm';
-      updateBackPageTransform();
-      savePrintCalibration();
-    }
-
-    function savePrintCalibration() {
-      try {
-        localStorage.setItem('ommnomi_epson_calib', JSON.stringify({
-          x: printState.calibX,
-          y: printState.calibY
-        }));
-      } catch (e) {
-        console.warn("Storage not available:", e);
-      }
-    }
 
     function loadSavedPrintCalibration() {
       try {
