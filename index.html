@@ -7,32 +7,32 @@
     <meta name="description" content="Hardik Sharma is an Assistant Developer and Product R&D Lead at OmmNoMi, specializing in AppSheet, Google Workspace, Frappe Ecosystem, and enterprise workflow automation.">
     
     <!-- Favicon tags -->
-    <link rel="shortcut icon" href="./favicon.ico?v=8" type="image/x-icon">
-    <link rel="icon" href="./favicon.ico?v=8" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon.png?v=8">
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon.png?v=8">
-    <link rel="apple-touch-icon" href="./assets/favicon.png?v=8">
+    <link rel="shortcut icon" href="./favicon.ico?v=9" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico?v=9" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon.png?v=9">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon.png?v=9">
+    <link rel="apple-touch-icon" href="./assets/favicon.png?v=9">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --bg-color: #f8fafc;
             --bg-secondary: #ffffff;
             --text-color: #0f172a;
-            --text-muted: #475569;
-            --primary: #2563eb;
-            --primary-light: rgba(37, 99, 235, 0.08);
-            --primary-glow: rgba(37, 99, 235, 0.2);
-            --accent: #4f46e5;
-            --accent-light: rgba(79, 70, 229, 0.08);
-            --border-color: #e2e8f0;
-            --card-bg: rgba(255, 255, 255, 0.88);
-            --font-sans: 'Inter', sans-serif;
-            --font-heading: 'Space Grotesk', sans-serif;
+            --text-muted: #334155; /* WCAG 2.1 AA High Contrast Slate */
+            --primary: #1d4ed8;    /* WCAG 2.1 AA Compliant Royal Blue (7.1:1 Contrast) */
+            --primary-light: rgba(29, 78, 216, 0.08);
+            --primary-glow: rgba(29, 78, 216, 0.2);
+            --accent: #4338ca;     /* WCAG 2.1 AA Compliant Indigo */
+            --accent-light: rgba(67, 56, 202, 0.08);
+            --border-color: #cbd5e1;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-heading: 'Space Grotesk', system-ui, sans-serif;
         }
 
         html, body {
@@ -52,10 +52,36 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             font-family: var(--font-sans);
-            line-height: 1.6;
+            line-height: 1.65;
+            font-size: 1rem;
         }
 
-        /* Ambient Glowing Background Orbs */
+        /* WCAG 2.1 AA Keyboard Focus Rings */
+        :focus-visible {
+            outline: 3px solid var(--primary) !important;
+            outline-offset: 3px !important;
+        }
+
+        /* Skip Link for Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 1rem;
+            background: var(--primary);
+            color: #ffffff;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            z-index: 1000;
+            font-weight: 700;
+            text-decoration: none;
+            transition: top 0.2s ease;
+        }
+
+        .skip-link:focus {
+            top: 1rem;
+        }
+
+        /* Ambient Background Orbs */
         .bg-anims {
             position: absolute;
             top: 0;
@@ -71,7 +97,7 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(100px);
-            opacity: 0.45;
+            opacity: 0.35;
         }
 
         .blob-1 {
@@ -79,7 +105,7 @@
             right: -5%;
             width: 550px;
             height: 550px;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, rgba(37, 99, 235, 0) 70%);
+            background: radial-gradient(circle, rgba(29, 78, 216, 0.2) 0%, rgba(29, 78, 216, 0) 70%);
             animation: floatBlob1 22s infinite alternate ease-in-out;
         }
 
@@ -88,7 +114,7 @@
             left: -8%;
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(79, 70, 229, 0.2) 0%, rgba(79, 70, 229, 0) 70%);
+            background: radial-gradient(circle, rgba(67, 56, 202, 0.18) 0%, rgba(67, 56, 202, 0) 70%);
             animation: floatBlob2 18s infinite alternate ease-in-out;
         }
 
@@ -116,7 +142,7 @@
             left: 0;
             right: 0;
             z-index: 100;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
@@ -129,58 +155,112 @@
             height: 75px;
         }
 
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+        }
+
         .logo img {
-            height: 44px;
+            height: 42px;
             width: auto;
             object-fit: contain;
             display: block;
         }
 
+        /* Accessible Navigation Links & Touch Targets */
         nav {
             display: flex;
-            gap: 2rem;
+            gap: 1.8rem;
             align-items: center;
         }
 
         nav a {
-            color: var(--text-muted);
+            color: var(--text-color);
             text-decoration: none;
-            font-size: 0.92rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            transition: color 0.25s;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            padding: 0 0.4rem;
+            transition: color 0.2s;
         }
 
-        nav a:hover {
+        nav a:hover, nav a:focus {
             color: var(--primary);
+        }
+
+        .nav-card-studio {
+            color: var(--primary) !important;
+            font-weight: 700 !important;
+            background: var(--primary-light);
+            padding: 0.4rem 0.9rem !important;
+            border-radius: 8px;
+            border: 1px solid rgba(29, 78, 216, 0.2);
         }
 
         .btn-cta {
             background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: #fff;
-            padding: 0.65rem 1.3rem;
+            color: #ffffff !important;
+            padding: 0.65rem 1.4rem !important;
             border-radius: 10px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.92rem;
+            font-weight: 700;
             border: none;
             cursor: pointer;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.28);
+            box-shadow: 0 4px 14px rgba(29, 78, 216, 0.28);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            min-height: 44px;
         }
 
         .btn-cta:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 22px rgba(37, 99, 235, 0.38);
+            box-shadow: 0 8px 22px rgba(29, 78, 216, 0.38);
         }
 
-        /* Marquee Ticker with Official High-Res Brand Logos */
+        /* Mobile Hamburger Toggle Button */
+        .mobile-menu-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+            min-height: 44px;
+            min-width: 44px;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .hamburger-bar {
+            width: 22px;
+            height: 2px;
+            background-color: var(--text-color);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle[aria-expanded="true"] .hamburger-bar:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .mobile-menu-toggle[aria-expanded="true"] .hamburger-bar:nth-child(2) {
+            opacity: 0;
+        }
+        .mobile-menu-toggle[aria-expanded="true"] .hamburger-bar:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* Marquee Ticker */
         .crawler-wrapper {
             margin-top: 75px;
             background: var(--bg-secondary);
             border-bottom: 1px solid var(--border-color);
             overflow: hidden;
             white-space: nowrap;
-            padding: 0.8rem 0;
+            padding: 0.85rem 0;
             display: flex;
         }
 
@@ -224,23 +304,16 @@
             position: relative;
         }
 
-        @media (max-width: 900px) {
-            .hero {
-                grid-template-columns: 1fr;
-                padding: 3.5rem 0 2.5rem 0;
-            }
-        }
-
         .badge-hero {
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
             padding: 0.45rem 1.1rem;
             background: var(--primary-light);
-            border: 1px solid rgba(37, 99, 235, 0.2);
+            border: 1px solid rgba(29, 78, 216, 0.25);
             border-radius: 9999px;
             color: var(--primary);
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
             text-transform: uppercase;
@@ -264,9 +337,9 @@
 
         .hero h1 {
             font-family: var(--font-heading);
-            font-size: 3.8rem;
+            font-size: clamp(2.3rem, 5.5vw, 3.8rem);
             font-weight: 700;
-            line-height: 1.12;
+            line-height: 1.14;
             margin-bottom: 1.2rem;
             letter-spacing: -0.02em;
             color: var(--text-color);
@@ -279,14 +352,14 @@
         }
 
         .hero h2 {
-            font-size: 1.6rem;
+            font-size: clamp(1.25rem, 3vw, 1.6rem);
             color: var(--text-muted);
             font-weight: 600;
             margin-bottom: 1.5rem;
         }
 
         .hero p {
-            font-size: 1.05rem;
+            font-size: clamp(0.98rem, 2vw, 1.05rem);
             color: var(--text-muted);
             margin-bottom: 2.5rem;
             max-width: 580px;
@@ -297,6 +370,7 @@
             display: flex;
             gap: 1.2rem;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .btn-secondary {
@@ -306,10 +380,13 @@
             padding: 0.65rem 1.3rem;
             border-radius: 10px;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             font-weight: 600;
             transition: all 0.3s;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
         }
 
         .btn-secondary:hover {
@@ -318,7 +395,7 @@
             color: var(--primary);
         }
 
-        /* Hero Right Column: Ultra-Sleek Core Dashboard Card */
+        /* Dashboard Card */
         .hero-card-wrapper {
             position: relative;
             display: flex;
@@ -333,21 +410,9 @@
             padding: 2.2rem;
             width: 100%;
             max-width: 450px;
-            box-shadow: 0 20px 50px rgba(37, 99, 235, 0.08);
+            box-shadow: 0 20px 50px rgba(29, 78, 216, 0.08);
             position: relative;
             transition: all 0.4s ease;
-            animation: heroCardEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .hero-core-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 25px 60px rgba(37, 99, 235, 0.15);
-            transform: translateY(-4px);
-        }
-
-        @keyframes heroCardEntrance {
-            0% { opacity: 0; transform: translateY(30px) scale(0.96); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .card-header {
@@ -372,18 +437,18 @@
         .status-indicator {
             width: 10px;
             height: 10px;
-            background-color: #10b981;
+            background-color: #16a34a;
             border-radius: 50%;
-            box-shadow: 0 0 10px #10b981;
+            box-shadow: 0 0 10px #16a34a;
         }
 
         .live-pill {
             background: var(--primary-light);
             color: var(--primary);
-            border: 1px solid rgba(37, 99, 235, 0.2);
+            border: 1px solid rgba(29, 78, 216, 0.25);
             padding: 0.3rem 0.8rem;
             border-radius: 9999px;
-            font-size: 0.75rem;
+            font-size: 0.78rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -413,17 +478,6 @@
             flex-shrink: 0;
         }
 
-        .metric-row:hover {
-            border-color: var(--primary);
-            transform: translateX(5px);
-            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.08);
-            background: #ffffff;
-        }
-
-        .metric-details {
-            flex-grow: 1;
-        }
-
         .metric-details h4 {
             font-size: 0.95rem;
             font-weight: 700;
@@ -431,7 +485,7 @@
         }
 
         .metric-details p {
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
             margin-bottom: 0;
         }
@@ -443,10 +497,10 @@
             color: var(--primary);
         }
 
-        /* Clean Floating Levitation Brand Badges (Positioned Cleanly Outside Card) */
+        /* Levitation Badges */
         .floating-badge {
             position: absolute;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(12px);
             border: 1px solid var(--border-color);
             border-radius: 14px;
@@ -458,7 +512,6 @@
             font-size: 0.85rem;
             font-weight: 700;
             z-index: 10;
-            pointer-events: none;
         }
 
         .floating-badge img {
@@ -489,6 +542,13 @@
             50% { transform: translateY(10px) rotate(-1.5deg); }
         }
 
+        /* Motion Sensitivity (WCAG 2.1 AA) */
+        @media (prefers-reduced-motion: reduce) {
+            .crawler { animation: none; }
+            .glowing-blob, .badge-left, .badge-right, .badge-hero::before { animation: none; }
+            * { transition: none !important; }
+        }
+
         /* Sections Common */
         section {
             padding: 5.5rem 0;
@@ -501,7 +561,7 @@
 
         .section-header h2 {
             font-family: var(--font-heading);
-            font-size: 2.4rem;
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
             font-weight: 700;
             margin-bottom: 0.5rem;
             color: var(--text-color);
@@ -509,7 +569,7 @@
 
         .section-header p {
             color: var(--text-muted);
-            font-size: 1.05rem;
+            font-size: clamp(1rem, 2vw, 1.08rem);
         }
 
         /* About Section */
@@ -517,12 +577,6 @@
             display: grid;
             grid-template-columns: 1fr 1.8fr;
             gap: 3.5rem;
-        }
-
-        @media (max-width: 768px) {
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
         }
 
         .stats-panel {
@@ -543,7 +597,7 @@
         }
 
         .stat-label {
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             color: var(--accent);
             text-transform: uppercase;
             font-weight: 700;
@@ -575,7 +629,7 @@
             flex-wrap: wrap;
             align-items: center;
             justify-content: center;
-            gap: 1.8rem;
+            gap: 1.5rem;
             padding: 2.2rem;
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
@@ -594,6 +648,7 @@
             border-radius: 14px;
             font-weight: 700;
             font-size: 0.95rem;
+            min-height: 44px;
             transition: all 0.3s;
         }
 
@@ -603,16 +658,10 @@
             object-fit: contain;
         }
 
-        .brand-pill:hover {
-            border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.12);
-        }
-
-        /* Skills Grid (12 Cards with Official High-Res Logos) */
+        /* Skills Grid */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1.6rem;
         }
 
@@ -629,7 +678,7 @@
         .skill-card:hover {
             transform: translateY(-6px);
             border-color: var(--primary);
-            box-shadow: 0 14px 35px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 14px 35px rgba(29, 78, 216, 0.12);
         }
 
         .skill-icon {
@@ -637,12 +686,11 @@
             height: 52px;
             border-radius: 14px;
             background: var(--primary-light);
-            border: 1px solid rgba(37, 99, 235, 0.15);
+            border: 1px solid rgba(29, 78, 216, 0.18);
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 1.4rem;
-            transition: all 0.3s;
         }
 
         .skill-icon img {
@@ -653,14 +701,14 @@
 
         .skill-card h3 {
             font-family: var(--font-heading);
-            font-size: 1.15rem;
+            font-size: 1.18rem;
             font-weight: 700;
             margin-bottom: 0.6rem;
             color: var(--text-color);
         }
 
         .skill-card p {
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             color: var(--text-muted);
             line-height: 1.65;
         }
@@ -685,18 +733,12 @@
 
         .project-card:hover {
             border-color: var(--primary);
-            box-shadow: 0 18px 45px rgba(37, 99, 235, 0.12);
-        }
-
-        @media (max-width: 900px) {
-            .project-card {
-                grid-template-columns: 1fr;
-            }
+            box-shadow: 0 18px 45px rgba(29, 78, 216, 0.12);
         }
 
         .project-image-box {
             padding: 3rem;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.04) 0%, rgba(79, 70, 229, 0.04) 100%);
+            background: linear-gradient(135deg, rgba(29, 78, 216, 0.04) 0%, rgba(67, 56, 202, 0.04) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -729,7 +771,7 @@
             display: flex;
             justify-content: space-between;
             font-size: 0.88rem;
-            padding: 0.3rem 0;
+            padding: 0.35rem 0;
         }
 
         .graphic-stat-row span:first-child {
@@ -749,7 +791,7 @@
         }
 
         .project-tag {
-            font-size: 0.75rem;
+            font-size: 0.78rem;
             color: var(--accent);
             text-transform: uppercase;
             font-weight: 700;
@@ -767,7 +809,7 @@
 
         .project-info p {
             color: var(--text-muted);
-            font-size: 0.98rem;
+            font-size: 1rem;
             line-height: 1.7;
             margin-bottom: 1.8rem;
         }
@@ -775,14 +817,14 @@
         .project-highlights {
             display: flex;
             flex-direction: column;
-            gap: 0.6rem;
+            gap: 0.75rem;
         }
 
         .highlight-item {
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             color: var(--text-color);
             font-weight: 500;
         }
@@ -806,7 +848,7 @@
 
         .contact-box h3 {
             font-family: var(--font-heading);
-            font-size: 2.3rem;
+            font-size: clamp(1.8rem, 4vw, 2.3rem);
             font-weight: 700;
             margin-bottom: 0.8rem;
             color: var(--text-color);
@@ -823,7 +865,7 @@
 
         .social-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 1.2rem;
             margin-bottom: 2.5rem;
         }
@@ -835,29 +877,21 @@
             border-radius: 14px;
             color: var(--text-color);
             text-decoration: none;
-            font-size: 0.92rem;
+            font-size: 0.95rem;
             font-weight: 700;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0.6rem;
+            min-height: 44px;
             transition: all 0.3s;
         }
 
-        .social-btn svg {
-            transition: transform 0.3s;
-        }
-
-        .social-btn:hover {
+        .social-btn:hover, .social-btn:focus {
             background: var(--primary-light);
             border-color: var(--primary);
             color: var(--primary);
             transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.12);
-        }
-
-        .social-btn:hover svg {
-            transform: scale(1.15);
         }
 
         .location-badge {
@@ -865,7 +899,7 @@
             align-items: center;
             gap: 0.6rem;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             font-weight: 600;
         }
 
@@ -874,7 +908,7 @@
             padding: 4rem 0 3rem 0;
             background: #ffffff;
             border-top: 1px solid var(--border-color);
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             color: var(--text-muted);
         }
 
@@ -903,495 +937,625 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* MOBILE RESPONSIVE MEDIA QUERIES (320px - 768px) */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 3.5rem 0 2.5rem 0;
+                gap: 3rem;
+            }
+
+            .hero-card-wrapper {
+                margin-top: 1rem;
+            }
+
+            .project-card {
+                grid-template-columns: 1fr;
+            }
+
+            .project-image-box {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            nav#primary-nav {
+                position: fixed;
+                top: 75px;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+                transform: translateY(-120%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            nav#primary-nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            nav a {
+                width: 100%;
+                justify-content: center;
+                font-size: 1.05rem;
+                padding: 0.75rem 0;
+                border-bottom: 1px solid var(--bg-color);
+            }
+
+            .btn-cta {
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-info {
+                padding: 2rem 1.5rem;
+            }
+
+            .contact-box {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .social-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1.25rem;
+            }
+
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-core-card {
+                padding: 1.5rem;
+            }
+
+            .floating-badge {
+                display: none; /* Hide floating levitation badges on small screens to prevent overlap */
+            }
+
+            .footer-wrapper {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Skip Link for Keyboard Navigation (WCAG 2.1 AA) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Ambient Glowing Orbs -->
-    <div class="bg-anims">
+    <div class="bg-anims" aria-hidden="true">
         <div class="glowing-blob blob-1"></div>
         <div class="glowing-blob blob-2"></div>
     </div>
 
     <!-- Header Navigation -->
-    <header>
+    <header role="banner">
         <div class="container nav-wrapper">
-            <a href="#" class="logo">
-                <img src="./assets/horizontal" alt="Hardik Sharma Developer & Product Research">
+            <a href="#" class="logo" aria-label="Hardik Sharma Homepage">
+                <img src="./assets/horizontal" alt="Hardik Sharma Developer and Product Research Logo">
             </a>
-            <nav>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
+
+            <nav id="primary-nav" aria-label="Main Navigation">
                 <a href="#about">About</a>
                 <a href="#skills">Skills</a>
                 <a href="#projects">Projects</a>
-                <a href="card-studio.html" style="color:#2563EB; font-weight:700; display:inline-flex; align-items:center; gap:6px; background:rgba(37,99,235,0.08); padding:0.45rem 0.95rem; border-radius:10px; border:1px solid rgba(37,99,235,0.22); text-decoration:none; transition:all 0.25s;">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-                    Card Studio
-                </a>
+                <a href="./card-studio.html" class="nav-card-studio">🎴 Business Card Studio</a>
                 <a href="#contact" class="btn-cta">Get in Touch</a>
             </nav>
         </div>
     </header>
 
-    <!-- Infinite Marquee Ticker with Official High-Res Brand Logos -->
-    <div class="crawler-wrapper">
+    <!-- Infinite Marquee Ticker -->
+    <div class="crawler-wrapper" aria-hidden="true">
         <div class="crawler">
             <div class="ticker-item">
-                <img src="./assets/brand-logos/frappe.svg" alt="Frappe">
+                <img src="./assets/brand-logos/frappe.svg" alt="Frappe Logo">
                 Frappe Framework
             </div>
             <div class="ticker-item">
-                <img src="./assets/brand-logos/appsheet.png" alt="AppSheet">
+                <img src="./assets/brand-logos/appsheet.png" alt="AppSheet Logo">
                 Google AppSheet
             </div>
             <div class="ticker-item">
-                <img src="./assets/brand-logos/apps_script.png" alt="Apps Script">
+                <img src="./assets/brand-logos/apps_script.png" alt="Apps Script Logo">
                 Google Apps Script
             </div>
             <div class="ticker-item">
-                <img src="./assets/brand-logos/workspace.png" alt="Workspace">
+                <img src="./assets/brand-logos/workspace.png" alt="Workspace Logo">
                 Google Workspace
             </div>
 
             <!-- Duplicated for seamless loop -->
             <div class="ticker-item">
-                <img src="./assets/brand-logos/frappe.svg" alt="Frappe">
+                <img src="./assets/brand-logos/frappe.svg" alt="Frappe Logo">
                 Frappe Framework
             </div>
             <div class="ticker-item">
-                <img src="./assets/brand-logos/appsheet.png" alt="AppSheet">
+                <img src="./assets/brand-logos/appsheet.png" alt="AppSheet Logo">
                 Google AppSheet
             </div>
             <div class="ticker-item">
-                <img src="./assets/brand-logos/apps_script.png" alt="Apps Script">
+                <img src="./assets/brand-logos/apps_script.png" alt="Apps Script Logo">
                 Google Apps Script
             </div>
             <div class="ticker-item">
-                <img src="./assets/brand-logos/workspace.png" alt="Workspace">
+                <img src="./assets/brand-logos/workspace.png" alt="Workspace Logo">
                 Google Workspace
             </div>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero container">
-        <div class="hero-content">
-            <div class="badge-hero">Product R&amp;D &amp; Operational Architect</div>
-            <h1>Hi, I'm <span>Hardik Sharma</span></h1>
-            <h2>Assistant Developer &amp; Product R&amp;D Lead</h2>
-            <p>I engineer robust backend automation engines at OmmNoMi, integrating Google Workspace, Frappe Cloud, and custom AppSheet solutions to transform business operations into effortless digital systems.</p>
-            <div class="hero-ctas">
-                <a href="#projects" class="btn-cta">Explore Projects</a>
-                <a href="card-studio.html" class="btn-secondary" style="display:inline-flex; align-items:center; gap:8px; border-color:#2563EB; color:#2563EB; font-weight:700;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.5"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-                    Create Business Card
-                </a>
-                <a href="#about" class="btn-secondary">Read Biography</a>
-            </div>
-        </div>
+    <!-- Main Landmark -->
+    <main id="main-content">
 
-        <!-- HERO RIGHT COLUMN: Sleek Glassmorphic Dashboard Card -->
-        <div class="hero-card-wrapper">
-            
-            <!-- Clean Floating Levitation Badges (Positioned Outside Card) -->
-            <div class="floating-badge badge-left">
-                <img src="./assets/brand-logos/frappe.svg" alt="Frappe">
-                <span>Frappe Ecosystem</span>
+        <!-- Hero Section -->
+        <section class="hero container" aria-label="Introduction">
+            <div class="hero-content">
+                <div class="badge-hero">Product R&amp;D &amp; Operational Architect</div>
+                <h1>Hi, I'm <span>Hardik Sharma</span></h1>
+                <h2>Assistant Developer &amp; Product R&amp;D Lead</h2>
+                <p>I engineer robust backend automation engines at OmmNoMi, integrating Google Workspace, Frappe Cloud, and custom AppSheet solutions to transform business operations into effortless digital systems.</p>
+                <div class="hero-ctas">
+                    <a href="#projects" class="btn-cta">Explore Projects</a>
+                    <a href="#about" class="btn-secondary">Read Biography</a>
+                    <a href="./card-studio.html" class="btn-secondary" style="border-color:var(--primary); color:var(--primary); font-weight:700;">🎴 Business Card Studio</a>
+                </div>
             </div>
 
-            <div class="floating-badge badge-right">
-                <img src="./assets/brand-logos/apps_script.png" alt="Apps Script">
-                <span>Google Apps Script</span>
-            </div>
+            <!-- HERO RIGHT COLUMN: Sleek Glassmorphic Dashboard Card -->
+            <div class="hero-card-wrapper">
+                
+                <div class="floating-badge badge-left" aria-hidden="true">
+                    <img src="./assets/brand-logos/frappe.svg" alt="">
+                    <span>Frappe Ecosystem</span>
+                </div>
 
-            <!-- Dashboard Card -->
-            <div class="hero-core-card">
-                <div class="card-header">
-                    <div class="card-header-title">
-                        <div class="status-indicator"></div>
-                        <span>Automation Engine Core</span>
+                <div class="floating-badge badge-right" aria-hidden="true">
+                    <img src="./assets/brand-logos/apps_script.png" alt="">
+                    <span>Google Apps Script</span>
+                </div>
+
+                <!-- Dashboard Card -->
+                <div class="hero-core-card">
+                    <div class="card-header">
+                        <div class="card-header-title">
+                            <div class="status-indicator" aria-hidden="true"></div>
+                            <span>Automation Engine Core</span>
+                        </div>
+                        <span class="live-pill">Live System</span>
                     </div>
-                    <span class="live-pill">Live System</span>
-                </div>
 
-                <div class="core-metric-list">
-                    <div class="metric-row">
-                        <img src="./assets/brand-logos/appsheet.png" alt="AppSheet">
-                        <div class="metric-details">
-                            <h4>Orbit HRMS Engine</h4>
-                            <p>AppSheet + Google Cloud</p>
+                    <div class="core-metric-list">
+                        <div class="metric-row">
+                            <img src="./assets/brand-logos/appsheet.png" alt="Google AppSheet Logo">
+                            <div class="metric-details">
+                                <h4>Orbit HRMS Engine</h4>
+                                <p>AppSheet + Google Cloud</p>
+                            </div>
+                            <div class="metric-tag">28+ Workflows</div>
                         </div>
-                        <div class="metric-tag">28+ Workflows</div>
-                    </div>
-                    <div class="metric-row">
-                        <img src="./assets/brand-logos/frappe.svg" alt="Frappe">
-                        <div class="metric-details">
-                            <h4>Yangon Broom ERP</h4>
-                            <p>Frappe Cloud Framework</p>
+                        <div class="metric-row">
+                            <img src="./assets/brand-logos/frappe.svg" alt="Frappe Framework Logo">
+                            <div class="metric-details">
+                                <h4>Yangon Broom ERP</h4>
+                                <p>Frappe Cloud Framework</p>
+                            </div>
+                            <div class="metric-tag">100% ERP</div>
                         </div>
-                        <div class="metric-tag">100% ERP</div>
-                    </div>
-                    <div class="metric-row">
-                        <img src="./assets/brand-logos/apps_script.png" alt="Apps Script">
-                        <div class="metric-details">
-                            <h4>Compliance Exporter</h4>
-                            <p>Google Apps Script RBAC</p>
-                        </div>
-                        <div class="metric-tag">Native CSV</div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Tech Stack Bar with Official High-Res Logos -->
-    <div class="container">
-        <div class="tech-brands-bar reveal">
-            <div class="brand-pill">
-                <img src="./assets/brand-logos/frappe.svg" alt="Frappe">
-                Frappe Framework
-            </div>
-            <div class="brand-pill">
-                <img src="./assets/brand-logos/appsheet.png" alt="AppSheet">
-                Google AppSheet
-            </div>
-            <div class="brand-pill">
-                <img src="./assets/brand-logos/apps_script.png" alt="Apps Script">
-                Google Apps Script
-            </div>
-            <div class="brand-pill">
-                <img src="./assets/brand-logos/workspace.png" alt="Workspace">
-                Google Workspace
-            </div>
-        </div>
-    </div>
-
-    <!-- About Section -->
-    <section id="about" class="container reveal">
-        <div class="section-header">
-            <h2>Biography</h2>
-            <p>My career focus and operational role at OmmNoMi Automation LLP.</p>
-        </div>
-        <div class="about-grid">
-            <div class="stats-panel">
-                <div class="stat-item">
-                    <span class="stat-label">Role</span>
-                    <span class="stat-value">Assistant Developer</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">Specialization</span>
-                    <span class="stat-value">Product R&amp;D</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">Company</span>
-                    <span class="stat-value">OmmNoMi Automation LLP</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">Location</span>
-                    <span class="stat-value">Himachal Pradesh, India</span>
-                </div>
-            </div>
-            <div class="bio-text">
-                <p>Hardik Sharma is a primary catalyst in the OmmNoMi implementation engine, specializing in the synthesis of complex technical backend logic and high-impact business value. As an Assistant Developer and the lead for Product Research and Development, Hardik ensures that every custom application is far more than just a functional utility; it is a branded, intuitive experience that feels like a natural extension of the client's organization.</p>
-                <p>He possesses a deep technical mastery of Advanced AppSheet Development, frequently engineering custom Apps Script solutions to extend platform capabilities and integrate seamlessly with the broader Google Workspace ecosystem. Hardik's design philosophy is centered on the intersection of technical robustness and aesthetic clarity, ensuring that Strategic Operational Smoothing is applied to every interface he designs to deliver a 'secret weapon' for our clients.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section (12 Full-Stack Skills with Official Logos) -->
-    <section id="skills" class="container reveal">
-        <div class="section-header">
-            <h2>Skills &amp; Expertise</h2>
-            <p>A full-stack technical toolkit built for modern digital transformation and operational excellence.</p>
-        </div>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <div class="skill-icon">
-                    <img src="./assets/brand-logos/appsheet.png" alt="AppSheet">
-                </div>
-                <h3>AppSheet Development</h3>
-                <p>Advanced no-code/low-code application engineering with custom logic, workflows, and integrations.</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">
-                    <img src="./assets/brand-logos/frappe.svg" alt="Frappe">
-                </div>
-                <h3>Frappe / ERPNext Ecosystem</h3>
-                <p>Migrating legacy systems to open-source Frappe Cloud framework unifying CRM, HR, invoicing, and support.</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">
-                    <img src="./assets/brand-logos/apps_script.png" alt="Apps Script">
-                </div>
-                <h3>Google Apps Script</h3>
-                <p>Custom automation scripts that extend Google Workspace capabilities and connect disparate cloud systems.</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">
-                    <img src="./assets/brand-logos/workspace.png" alt="Workspace">
-                </div>
-                <h3>Google Workspace</h3>
-                <p>Deep integration expertise across Sheets, Docs, Drive, Forms, Gmail, and the full Workspace ecosystem.</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">
-                    <img src="./assets/brand-logos/appsheet.png" alt="Custom App Creator">
-                </div>
-                <h3>Custom App Creator</h3>
-                <p>Designing tailored, robust business applications that smooth operations and boost productivity.</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">
-                    <img src="./assets/brand-logos/frappe.svg" alt="Website Builder">
-                </div>
-                <h3>Website Builder</h3>
-                <p>Full-stack web application development creating fast, responsive, and aesthetically striking web portals.</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-                </div>
-                <h3>SEO Boost &amp; Optimization</h3>
-                <p>Optimizing web architecture, meta hierarchy, and search performance to maximize organic visibility.</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                </div>
-                <h3>Product Documentation</h3>
-                <p>Turning complex SOPs into clear, visual Study Guides and release notes that drive user adoption.</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
-                </div>
-                <h3>Cinematic Video Production</h3>
-                <p>End-to-end production of tutorial videos — scripting, voiceover, and precision cinematic editing.</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
-                </div>
-                <h3>Digital Branding &amp; Strategy</h3>
-                <p>Crafting consistent brand experiences that communicate Operational Excellence across all touchpoints.</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>
-                </div>
-                <h3>AI Tools Integration</h3>
-                <p>Researching and integrating the latest AI tools to keep products at the cutting edge of innovation.</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
-                </div>
-                <h3>Dashboard Prototyping</h3>
-                <p>Designing and prototyping advanced dashboards that are powerful, intuitive, and a joy to use.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="container reveal">
-        <div class="section-header">
-            <h2>Featured Projects</h2>
-            <p>Real-world enterprise solutions built to automate and optimize business operations.</p>
-        </div>
-        <div class="projects-grid">
-            
-            <!-- Project 1: Orbit HRMS -->
-            <div class="project-card">
-                <div class="project-image-box">
-                    <div class="project-graphic">
-                        <div class="project-graphic-header">
-                            <span style="display:flex; align-items:center; gap:0.5rem;"><img src="./assets/brand-logos/appsheet.png" style="width:20px; height:20px;" alt=""> ORBIT_HRMS</span>
-                            <span style="color:var(--primary);">v2.0.0</span>
-                        </div>
-                        <div class="graphic-stat-row">
-                            <span>Platform</span>
-                            <span>Google AppSheet</span>
-                        </div>
-                        <div class="graphic-stat-row">
-                            <span>Workflows</span>
-                            <span>28+ Deployed</span>
-                        </div>
-                        <div class="graphic-stat-row">
-                            <span>Client</span>
-                            <span>BLR World (UAE/Qatar/KSA)</span>
-                        </div>
-                        <div class="graphic-stat-row">
-                            <span>Satisfaction</span>
-                            <span>83.3% Rate</span>
+                        <div class="metric-row">
+                            <img src="./assets/brand-logos/apps_script.png" alt="Google Apps Script Logo">
+                            <div class="metric-details">
+                                <h4>Compliance Exporter</h4>
+                                <p>Google Apps Script RBAC</p>
+                            </div>
+                            <div class="metric-tag">Native CSV</div>
                         </div>
                     </div>
                 </div>
-                <div class="project-info">
-                    <div class="project-tag">Enterprise System Integration</div>
-                    <h3>Orbit HRMS</h3>
-                    <p>Designed and deployed a comprehensive cross-border Human Resource Management System for BLR World, replacing Zimyo and serving employees across UAE, Qatar, and KSA.</p>
-                    <div class="project-highlights">
-                        <div class="highlight-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            <span>1-Click Interactive Email Approvals built into Gmail &amp; Google Chat.</span>
-                        </div>
-                        <div class="highlight-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            <span>MoveFinance auto-archiver bot filing receipt uploads into Google Drive.</span>
-                        </div>
-                        <div class="highlight-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            <span>Shift timezone compensations and strict geolocation check-in locking.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Project 2: Yangon Broom -->
-            <div class="project-card">
-                <div class="project-image-box">
-                    <div class="project-graphic">
-                        <div class="project-graphic-header">
-                            <span style="display:flex; align-items:center; gap:0.5rem;"><img src="./assets/brand-logos/frappe.svg" style="width:20px; height:20px;" alt=""> YANGON_BROOM</span>
-                            <span style="color:var(--primary);">v1.0.0</span>
-                        </div>
-                        <div class="graphic-stat-row">
-                            <span>Core Tech</span>
-                            <span>Frappe / ERPNext</span>
-                        </div>
-                        <div class="graphic-stat-row">
-                            <span>Database</span>
-                            <span>Frappe Cloud (SQL)</span>
-                        </div>
-                        <div class="graphic-stat-row">
-                            <span>Target</span>
-                            <span>100% Booking Automation</span>
-                        </div>
-                        <div class="graphic-stat-row">
-                            <span>Scope</span>
-                            <span>CRM / HR / Invoicing</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <div class="project-tag">Cloud Infrastructure Transition</div>
-                    <h3>Frappe ERP Transition</h3>
-                    <p>Orchestrated the migration of Yangon Broom's operational codebase from an unstable React/AWS legacy framework to the open-source ERPNext/Frappe Cloud platform.</p>
-                    <div class="project-highlights">
-                        <div class="highlight-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            <span>Consolidated Wix, custom sheets and legacy React APIs into a single dashboard.</span>
-                        </div>
-                        <div class="highlight-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            <span>Burmese &amp; English multi-language (i18n) setup for cleaners and operations.</span>
-                        </div>
-                        <div class="highlight-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            <span>Autonomous calendar booking systems with clean REST APIs ready for mobile.</span>
-                        </div>
-                    </div>
-                </div>
             </div>
+        </section>
 
-            <!-- Project 3: Export compliance -->
-            <div class="project-card">
-                <div class="project-image-box">
-                    <div class="project-graphic">
-                        <div class="project-graphic-header">
-                            <span style="display:flex; align-items:center; gap:0.5rem;"><img src="./assets/brand-logos/apps_script.png" style="width:20px; height:20px;" alt=""> EXPORT_COMPLIANCE</span>
-                            <span style="color:var(--primary);">Live</span>
-                        </div>
-                        <div class="graphic-stat-row">
-                            <span>Action</span>
-                            <span>Export_Documents</span>
-                        </div>
-                        <div class="graphic-stat-row">
-                            <span>Format</span>
-                            <span>Native CSV</span>
-                        </div>
-                        <div class="graphic-stat-row">
-                            <span>Target</span>
-                            <span>Visa/Compliance Expiries</span>
-                        </div>
-                        <div class="graphic-stat-row">
-                            <span>Security</span>
-                            <span>Role-Based Filters</span>
-                        </div>
-                    </div>
+        <!-- Tech Stack Bar -->
+        <div class="container">
+            <div class="tech-brands-bar reveal" aria-label="Core Technology Stack">
+                <div class="brand-pill">
+                    <img src="./assets/brand-logos/frappe.svg" alt="Frappe Framework Logo">
+                    Frappe Framework
                 </div>
-                <div class="project-info">
-                    <div class="project-tag">Feature Release &amp; Security</div>
-                    <h3>CSV Exporter Module</h3>
-                    <p>Designed and programmed a native one-click compliance CSV exporter for HR administrators inside Orbit HRMS, facilitating instant reporting of document metadata and expiry alerts.</p>
-                    <div class="project-highlights">
-                        <div class="highlight-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            <span>Authorized role validation (Admin, Manager, User, Viewer roles).</span>
-                        </div>
-                        <div class="highlight-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            <span>Direct-to-browser CSV compilation preventing server latency or read delays.</span>
-                        </div>
-                        <div class="highlight-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            <span>100% read-only secure pull structure protecting backend master records.</span>
-                        </div>
-                    </div>
+                <div class="brand-pill">
+                    <img src="./assets/brand-logos/appsheet.png" alt="Google AppSheet Logo">
+                    Google AppSheet
                 </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="container reveal">
-        <div class="contact-box">
-            <h3>Get in Touch</h3>
-            <p>Connect with me for system architecture, AppSheet development, or automation collaborations.</p>
-            <div class="social-grid">
-                <a href="https://www.linkedin.com/in/whardiksharma" target="_blank" class="social-btn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                    LinkedIn
-                </a>
-                <a href="https://github.com/whardiksharma" target="_blank" class="social-btn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                    GitHub
-                </a>
-                <a href="https://x.com/whardiksharma" target="_blank" class="social-btn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></svg>
-                    X / Twitter
-                </a>
-                <a href="mailto:me@whardiksharma.in" class="social-btn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                    Email
-                </a>
-            </div>
-            <div class="location-badge">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                Himachal Pradesh, India
+                <div class="brand-pill">
+                    <img src="./assets/brand-logos/apps_script.png" alt="Google Apps Script Logo">
+                    Google Apps Script
+                </div>
+                <div class="brand-pill">
+                    <img src="./assets/brand-logos/workspace.png" alt="Google Workspace Logo">
+                    Google Workspace
+                </div>
             </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
+        <!-- About Section -->
+        <section id="about" class="container reveal" aria-labelledby="about-heading">
+            <div class="section-header">
+                <h2 id="about-heading">Biography</h2>
+                <p>My career focus and operational role at OmmNoMi Automation LLP.</p>
+            </div>
+            <div class="about-grid">
+                <div class="stats-panel">
+                    <div class="stat-item">
+                        <span class="stat-label">Role</span>
+                        <span class="stat-value">Assistant Developer</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Specialization</span>
+                        <span class="stat-value">Product R&amp;D</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Company</span>
+                        <span class="stat-value">OmmNoMi Automation LLP</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Location</span>
+                        <span class="stat-value">Himachal Pradesh, India</span>
+                    </div>
+                </div>
+                <div class="bio-text">
+                    <p>Hardik Sharma is a primary catalyst in the OmmNoMi implementation engine, specializing in the synthesis of complex technical backend logic and high-impact business value. As an Assistant Developer and the lead for Product Research and Development, Hardik ensures that every custom application is far more than just a functional utility; it is a branded, intuitive experience that feels like a natural extension of the client's organization.</p>
+                    <p>He possesses a deep technical mastery of Advanced AppSheet Development, frequently engineering custom Apps Script solutions to extend platform capabilities and integrate seamlessly with the broader Google Workspace ecosystem. Hardik's design philosophy is centered on the intersection of technical robustness and aesthetic clarity, ensuring that Strategic Operational Smoothing is applied to every interface he designs to deliver a 'secret weapon' for our clients.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="container reveal" aria-labelledby="skills-heading">
+            <div class="section-header">
+                <h2 id="skills-heading">Skills &amp; Expertise</h2>
+                <p>A full-stack technical toolkit built for modern digital transformation and operational excellence.</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="./assets/brand-logos/appsheet.png" alt="AppSheet Development Logo">
+                    </div>
+                    <h3>AppSheet Development</h3>
+                    <p>Advanced no-code/low-code application engineering with custom logic, workflows, and integrations.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="./assets/brand-logos/frappe.svg" alt="Frappe Framework Logo">
+                    </div>
+                    <h3>Frappe / ERPNext Ecosystem</h3>
+                    <p>Migrating legacy systems to open-source Frappe Cloud framework unifying CRM, HR, invoicing, and support.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="./assets/brand-logos/apps_script.png" alt="Google Apps Script Logo">
+                    </div>
+                    <h3>Google Apps Script</h3>
+                    <p>Custom automation scripts that extend Google Workspace capabilities and connect disparate cloud systems.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="./assets/brand-logos/workspace.png" alt="Google Workspace Logo">
+                    </div>
+                    <h3>Google Workspace</h3>
+                    <p>Deep integration expertise across Sheets, Docs, Drive, Forms, Gmail, and the full Workspace ecosystem.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="./assets/brand-logos/appsheet.png" alt="Custom App Creator Logo">
+                    </div>
+                    <h3>Custom App Creator</h3>
+                    <p>Designing tailored, robust business applications that smooth operations and boost productivity.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="./assets/brand-logos/frappe.svg" alt="Website Builder Logo">
+                    </div>
+                    <h3>Website Builder</h3>
+                    <p>Full-stack web application development creating fast, responsive, and aesthetically striking web portals.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon" aria-hidden="true">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                    </div>
+                    <h3>SEO Boost &amp; Optimization</h3>
+                    <p>Optimizing web architecture, meta hierarchy, and search performance to maximize organic visibility.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon" aria-hidden="true">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    </div>
+                    <h3>Product Documentation</h3>
+                    <p>Turning complex SOPs into clear, visual Study Guides and release notes that drive user adoption.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon" aria-hidden="true">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+                    </div>
+                    <h3>Cinematic Video Production</h3>
+                    <p>End-to-end production of tutorial videos — scripting, voiceover, and precision cinematic editing.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon" aria-hidden="true">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+                    </div>
+                    <h3>Digital Branding &amp; Strategy</h3>
+                    <p>Crafting consistent brand experiences that communicate Operational Excellence across all touchpoints.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon" aria-hidden="true">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>
+                    </div>
+                    <h3>AI Tools Integration</h3>
+                    <p>Researching and integrating the latest AI tools to keep products at the cutting edge of innovation.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon" aria-hidden="true">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                    </div>
+                    <h3>Dashboard Prototyping</h3>
+                    <p>Designing and prototyping advanced dashboards that are powerful, intuitive, and a joy to use.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="container reveal" aria-labelledby="projects-heading">
+            <div class="section-header">
+                <h2 id="projects-heading">Featured Projects</h2>
+                <p>Real-world enterprise solutions built to automate and optimize business operations.</p>
+            </div>
+            <div class="projects-grid">
+                
+                <!-- Project 1: Orbit HRMS -->
+                <article class="project-card" aria-label="Orbit HRMS Case Study">
+                    <div class="project-image-box">
+                        <div class="project-graphic">
+                            <div class="project-graphic-header">
+                                <span style="display:flex; align-items:center; gap:0.5rem;"><img src="./assets/brand-logos/appsheet.png" style="width:20px; height:20px;" alt=""> ORBIT_HRMS</span>
+                                <span style="color:var(--primary);">v2.0.0</span>
+                            </div>
+                            <div class="graphic-stat-row">
+                                <span>Platform</span>
+                                <span>Google AppSheet</span>
+                            </div>
+                            <div class="graphic-stat-row">
+                                <span>Workflows</span>
+                                <span>28+ Deployed</span>
+                            </div>
+                            <div class="graphic-stat-row">
+                                <span>Client</span>
+                                <span>BLR World (UAE/Qatar/KSA)</span>
+                            </div>
+                            <div class="graphic-stat-row">
+                                <span>Satisfaction</span>
+                                <span>83.3% Rate</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tag">Enterprise System Integration</div>
+                        <h3>Orbit HRMS</h3>
+                        <p>Designed and deployed a comprehensive cross-border Human Resource Management System for BLR World, replacing Zimyo and serving employees across UAE, Qatar, and KSA.</p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>1-Click Interactive Email Approvals built into Gmail &amp; Google Chat.</span>
+                            </div>
+                            <div class="highlight-item">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>MoveFinance auto-archiver bot filing receipt uploads into Google Drive.</span>
+                            </div>
+                            <div class="highlight-item">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Shift timezone compensations and strict geolocation check-in locking.</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2: Yangon Broom -->
+                <article class="project-card" aria-label="Frappe ERP Transition Case Study">
+                    <div class="project-image-box">
+                        <div class="project-graphic">
+                            <div class="project-graphic-header">
+                                <span style="display:flex; align-items:center; gap:0.5rem;"><img src="./assets/brand-logos/frappe.svg" style="width:20px; height:20px;" alt=""> YANGON_BROOM</span>
+                                <span style="color:var(--primary);">v1.0.0</span>
+                            </div>
+                            <div class="graphic-stat-row">
+                                <span>Core Tech</span>
+                                <span>Frappe / ERPNext</span>
+                            </div>
+                            <div class="graphic-stat-row">
+                                <span>Database</span>
+                                <span>Frappe Cloud (SQL)</span>
+                            </div>
+                            <div class="graphic-stat-row">
+                                <span>Target</span>
+                                <span>100% Booking Automation</span>
+                            </div>
+                            <div class="graphic-stat-row">
+                                <span>Scope</span>
+                                <span>CRM / HR / Invoicing</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tag">Cloud Infrastructure Transition</div>
+                        <h3>Frappe ERP Transition</h3>
+                        <p>Orchestrated the migration of Yangon Broom's operational codebase from an unstable React/AWS legacy framework to the open-source ERPNext/Frappe Cloud platform.</p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Consolidated Wix, custom sheets and legacy React APIs into a single dashboard.</span>
+                            </div>
+                            <div class="highlight-item">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Burmese &amp; English multi-language (i18n) setup for cleaners and operations.</span>
+                            </div>
+                            <div class="highlight-item">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Autonomous calendar booking systems with clean REST APIs ready for mobile.</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 3: Export compliance -->
+                <article class="project-card" aria-label="CSV Compliance Exporter Case Study">
+                    <div class="project-image-box">
+                        <div class="project-graphic">
+                            <div class="project-graphic-header">
+                                <span style="display:flex; align-items:center; gap:0.5rem;"><img src="./assets/brand-logos/apps_script.png" style="width:20px; height:20px;" alt=""> EXPORT_COMPLIANCE</span>
+                                <span style="color:var(--primary);">Live</span>
+                            </div>
+                            <div class="graphic-stat-row">
+                                <span>Action</span>
+                                <span>Export_Documents</span>
+                            </div>
+                            <div class="graphic-stat-row">
+                                <span>Format</span>
+                                <span>Native CSV</span>
+                            </div>
+                            <div class="graphic-stat-row">
+                                <span>Target</span>
+                                <span>Visa/Compliance Expiries</span>
+                            </div>
+                            <div class="graphic-stat-row">
+                                <span>Security</span>
+                                <span>Role-Based Filters</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tag">Feature Release &amp; Security</div>
+                        <h3>CSV Exporter Module</h3>
+                        <p>Designed and programmed a native one-click compliance CSV exporter for HR administrators inside Orbit HRMS, facilitating instant reporting of document metadata and expiry alerts.</p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Authorized role validation (Admin, Manager, User, Viewer roles).</span>
+                            </div>
+                            <div class="highlight-item">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Direct-to-browser CSV compilation preventing server latency or read delays.</span>
+                            </div>
+                            <div class="highlight-item">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>100% read-only secure pull structure protecting backend master records.</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="container reveal" aria-labelledby="contact-heading">
+            <div class="contact-box">
+                <h3 id="contact-heading">Get in Touch</h3>
+                <p>Connect with me for system architecture, AppSheet development, or automation collaborations.</p>
+                <div class="social-grid">
+                    <a href="https://www.linkedin.com/in/whardiksharma" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Visit Hardik Sharma LinkedIn Profile">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                        LinkedIn
+                    </a>
+                    <a href="https://github.com/whardiksharma" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Visit Hardik Sharma GitHub Profile">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                        GitHub
+                    </a>
+                    <a href="https://x.com/whardiksharma" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Visit Hardik Sharma X Twitter Profile">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></svg>
+                        X / Twitter
+                    </a>
+                    <a href="mailto:me@whardiksharma.in" class="social-btn" aria-label="Send Email to Hardik Sharma">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        Email
+                    </a>
+                </div>
+                <div class="location-badge">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    Himachal Pradesh, India
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Landmark -->
+    <footer role="contentinfo">
         <div class="container footer-wrapper">
-            <a href="#" class="footer-logo">
-                <img src="./assets/horizontal" alt="Hardik Sharma Developer & Product Research">
+            <a href="#" class="footer-logo" aria-label="Hardik Sharma Homepage Footer">
+                <img src="./assets/horizontal" alt="Hardik Sharma Developer and Product Research Logo">
             </a>
             <div class="footer-copy">
                 <p>&copy; OmmNoMi. All rights reserved.</p>
-                <p style="font-size: 0.8rem; margin-top: 0.25rem;">1/1 Vill. Kalouta PO Mahun Teh. Karsog, Distt. Mandi, HP 175010</p>
+                <p style="font-size: 0.82rem; margin-top: 0.25rem;">1/1 Vill. Kalouta PO Mahun Teh. Karsog, Distt. Mandi, HP 175010</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scroll Reveal JavaScript -->
+    <!-- JavaScript for Mobile Menu & Scroll Reveal -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const reveals = document.querySelectorAll(".reveal");
+            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            const nav = document.getElementById('primary-nav');
             
+            if (toggleBtn && nav) {
+                toggleBtn.addEventListener('click', function() {
+                    const expanded = this.getAttribute('aria-expanded') === 'true';
+                    this.setAttribute('aria-expanded', !expanded);
+                    nav.classList.toggle('active');
+                });
+
+                nav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        toggleBtn.setAttribute('aria-expanded', 'false');
+                        nav.classList.remove('active');
+                    });
+                });
+            }
+
+            const reveals = document.querySelectorAll(".reveal");
             function checkReveal() {
                 const triggerBottom = window.innerHeight * 0.85;
                 reveals.forEach(reveal => {
@@ -1401,7 +1565,6 @@
                     }
                 });
             }
-            
             window.addEventListener("scroll", checkReveal);
             checkReveal();
         });

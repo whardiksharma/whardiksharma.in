@@ -1453,7 +1453,75 @@
         margin: 0mm;
       }
     }
-  </style>
+  
+    /* WCAG 2.1 AA Keyboard Focus & Mobile Responsiveness Overhaul */
+    :focus-visible {
+      outline: 2px solid #38BDF8 !important;
+      outline-offset: 2px !important;
+    }
+
+    /* Touch Targets (Min 44px) */
+    .btn, .switch-btn, .text-input, .template-card-btn, .print-seg-opt {
+      min-height: 44px;
+    }
+
+    .range-input::-webkit-slider-thumb {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* Mobile Breakdown (<= 900px) */
+    @media (max-width: 900px) {
+      html, body {
+        height: auto;
+        overflow-y: auto;
+      }
+
+      .top-header {
+        height: auto;
+        padding: 8px 16px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .studio-grid {
+        grid-template-columns: 1fr;
+        height: auto;
+        max-height: none;
+        overflow: visible;
+      }
+
+      .sidebar-pane {
+        max-height: none;
+        height: auto;
+        overflow: visible;
+        order: 2; /* Moves control sidebar below live stage canvas on mobile */
+      }
+
+      .stage-pane {
+        height: auto;
+        min-height: 360px;
+        padding: 24px 12px;
+        order: 1; /* Keeps live preview stage at the top of mobile screen */
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: var(--bg-dark);
+      }
+
+      .card-3d-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .card-flipper {
+        width: min(540px, 92vw) !important;
+        height: calc(min(540px, 92vw) * (2.0 / 3.5)) !important;
+      }
+    }
+
+</style>
 </head>
 <body>
 
